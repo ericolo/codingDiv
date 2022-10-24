@@ -47,7 +47,9 @@ Same installation process as for samtools
 https://sourceforge.net/projects/bio-bwa/files/
 
 Once you have all needed software, download and add the garbanzo directory to your path (in your bash config file) 
+```bash
 export PATH=$PATH:"~/your_own_dir/garbanzo"
+```
 
 Also check that the correct versions of the dependencies are the ones called by default, confusion can happen if you have several versions of the same tool.
 
