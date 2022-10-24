@@ -3,7 +3,7 @@ garbanzo means pois-chiche, it was suggested by github
 Exploring metagenome microdiversity to better find protein coding genes
 
 # Required tools and versions
-At least Python v3.6.4 & R v3.6.2
+**Python v3.6.4 & R v3.6.2**
 
 ## Protein predictors
 **prodigal v2.6.2**
@@ -95,3 +95,6 @@ A directory `final_results` will contain both an SVG plot and a TSV file with al
 The other created directories contain intermediate files such as mapping results, protein prediction files... 
 
 If your final files are empty, you can check the stdout.err file which is a raw output file.
+
+Expected plot:
+![alt text](https://drive.google.com/file/d/1HxT3jGDoNe_PI3bIvCVX63pbIFZMwIWz/view?usp=sharing)
