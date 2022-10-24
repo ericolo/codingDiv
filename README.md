@@ -58,7 +58,7 @@ You are now ready to use it!
 Example command: 
 
 ```bash
-pipeline.sh reference_genome.fast reads_or_contigs.fasta 60 1 2 1 3 N
+pipeline.sh reference_genome.fasta reads_or_contigs.fasta 60 1 2 1 3 N
 ```
 
 pipeline.sh v1.0 
@@ -97,4 +97,4 @@ The other created directories contain intermediate files such as mapping results
 If your final files are empty, you can check the stdout.err file which is a raw output file.
 
 Expected plot:
-![alt text](https://drive.google.com/file/d/1HxT3jGDoNe_PI3bIvCVX63pbIFZMwIWz/view?usp=sharing)
+![alt text](https://drive.google.com/uc?export=view&id=1HxT3jGDoNe_PI3bIvCVX63pbIFZMwIWz)
