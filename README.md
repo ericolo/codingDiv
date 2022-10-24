@@ -41,10 +41,12 @@ Keep only samtools from this repo:
 https://sourceforge.net/projects/samtools/files/samtools/1.10/
 
 **bcftools v1.14**
+
 You can follow the same process as done for samtools, and you can find the right version here:
 https://sourceforge.net/projects/samtools/files/samtools/1.14/
 
 **bwa v0.7.17-r1198-dirty**
+
 Same installation process as for samtools
 https://sourceforge.net/projects/bio-bwa/files/
 
