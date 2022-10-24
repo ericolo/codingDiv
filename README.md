@@ -35,6 +35,7 @@ https://ggplot2.tidyverse.org/
 ## Software needed for mapping reads and SNP calling
 **samtools v1.10**
 http://www.sthda.com/english/wiki/install-samtools-on-unix-system#google_vignette
+
 Keep only samtools from this repo:
 https://sourceforge.net/projects/samtools/files/samtools/1.10/
 
