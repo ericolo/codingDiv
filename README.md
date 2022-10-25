@@ -100,7 +100,7 @@ Clermont-Auvergne University (UCA)
 A directory `final_results` will contain both an SVG plot and a TSV file with all results.
 The other created directories contain intermediate files such as mapping results, protein prediction files... 
 
-If your final files are empty, you can check the stdout.err file which is a raw output file.
+If your final files are empty, you can check the `stdout.err` file which is a raw output file.
 
 Expected plot:
 ![alt text](https://drive.google.com/uc?export=view&id=1HxT3jGDoNe_PI3bIvCVX63pbIFZMwIWz)
