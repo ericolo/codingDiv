@@ -132,7 +132,7 @@ echo "Producing plots & moving files to their directories..."
 
 ############################ORFs pNpS
 #name of the genome and size /. full orfs / getorf
-pnps.R $genome_name $genome_size $ref_trslt.snp_summary.tsv $ref_orfs.snp_summary.tsv $min_reads $min_percentage $ref_orfs_tsv
+pnps.R $genome_name $genome_size $ref_orfs.snp_summary.tsv $min_reads $min_percentage $ref_orfs_tsv
 
 #Producing plots
 if [ $genome_size -lt 100000 ]

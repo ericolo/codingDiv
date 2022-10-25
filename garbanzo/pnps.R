@@ -20,13 +20,12 @@ genome=args[1]
 
 size=as.integer(args[2])
 
-mapping_reads=args[3]
-mapping_orfs=args[4]
+mapping_orfs=args[3]
 
-min_reads=as.integer(args[5])
-min_percentage=as.double(args[6])
+min_reads=as.integer(args[4])
+min_percentage=as.double(args[5])
 
-orf_coord=args[7]
+orf_coord=args[6]
 
 ###################################################################################
 
@@ -34,41 +33,9 @@ orf_coord=args[7]
 genomes=c(genome)
 
 for (i in 1:length(genomes)) {
-  
-pnps_contigs=tibble(prot=NA,NonSyn=NA,Syn=NA,pNpS=NA)
-pnps_reads=tibble(prot=NA,NonSyn=NA,Syn=NA,pNpS=NA)
-pnps_reads_th=tibble(prot=NA,NonSyn=NA,Syn=NA,pNpS=NA)
-pnps_both=tibble(prot=NA,NonSyn=NA,Syn=NA,pNpS=NA)
-pnps_both_th=tibble(prot=NA,NonSyn=NA,Syn=NA,pNpS=NA)
 
 
-snp_viromes=read_tsv(mapping_reads)
-
-snp_viromes_th=read_tsv(mapping_reads) %>% filter(snp_depth>=min_reads) %>% filter( (snp_depth/total_depth *100) >= min_percentage)
-
-snp_contigs=read_tsv(mapping_orfs)
-
-
-snp_both=full_join(snp_contigs %>% select(-total_depth,-total_snp_depth,-snp_depth,-total_snp_depth,-qual_score), snp_viromes %>% select(-total_depth,-total_snp_depth,-snp_depth,-total_snp_depth,-qual_score))
-
-
-snp_both_th=full_join(snp_contigs %>% select(-total_depth,-total_snp_depth,-snp_depth,-total_snp_depth,-qual_score), snp_viromes_th %>% select(-total_depth,-total_snp_depth,-snp_depth,-total_snp_depth,-qual_score))
-
-
-
-for (a_ in c("contigs","reads","reads_th","both","both_th") ) {
-
-if (a_=="contigs") { snp=snp_contigs }  
-
-if (a_=="reads") { snp=snp_viromes }
-
-if (a_=="reads_th") { snp=snp_viromes_th }  
-  
-if (a_=="both") { snp=snp_both }
-
-if (a_=="both_th") { snp=snp_both_th }
-  
-if ( dim(snp)[1]!=0 ) {
+snp=read_tsv(mapping_orfs) %>% filter(snp_depth>=min_reads) %>% filter( (snp_depth/total_depth *100) >= min_percentage) %>% select(-total_depth,-total_snp_depth,-snp_depth,-total_snp_depth,-qual_score)
 
 
 ################################
@@ -79,6 +46,7 @@ b=snp %>% filter(ref_aa!=alt_aa) %>% filter(blosum62< -2) %>% mutate("sub_nature
 
 d=snp %>% filter(ref_aa!=alt_aa) %>% filter(blosum62>= -2) %>% filter(blosum62<0) %>% mutate("sub_nature"=c("NonSyn"))
 
+#for AAtoSTOP
 e=snp %>% filter(ref_aa!=alt_aa) %>% filter(is.na(blosum62)) %>% mutate("sub_nature"=c("NonSyn"))
 
 c=snp %>% filter(ref_aa==alt_aa) %>% mutate("sub_nature"=c("Syn"))
@@ -105,31 +73,11 @@ if (!"NonSyn" %in% x$sub_nature) {
   x=x %>% add_row(prot=NA,sub_nature="NonSyn",count_type=NA)}
 
 #0 & 0.5 are minimal values
-
-#assign to rename variable with function result
-assign( str_c("pnps","_",a_) , x %>% spread(sub_nature,count_type) %>% replace_na(list(Syn = 0.5, NonSyn = 0)) %>% mutate("pNpS"=NonSyn/Syn ) )
+pnps = x %>% spread(sub_nature,count_type) %>% replace_na(list(Syn = 0.5, NonSyn = 0)) %>% mutate("pNpS"=NonSyn/Syn )
 
 }
 
-}
-
-pnps_contigs=pnps_contigs %>% rename("contigs_NonSyn"=NonSyn,"contigs_Syn"=Syn,"contigs_pNpS"=pNpS)
-
-pnps_reads=pnps_reads %>% rename("reads_NonSyn"=NonSyn,"reads_Syn"=Syn,"reads_pNpS"=pNpS)
-
-pnps_reads_th=pnps_reads_th %>% rename("reads_th_NonSyn"=NonSyn,"reads_th_Syn"=Syn,"reads_th_pNpS"=pNpS)
-
-pnps_both=pnps_both %>% rename("both_NonSyn"=NonSyn,"both_Syn"=Syn,"both_pNpS"=pNpS)
-
-pnps_both_th=pnps_both_th %>% rename("both_th_NonSyn"=NonSyn,"both_th_Syn"=Syn,"both_th_pNpS"=pNpS)
-
-pnps=pnps_contigs %>% full_join(pnps_reads) %>% full_join(pnps_reads_th) %>% full_join(pnps_both) %>% full_join(pnps_both_th)
-
-
-pnps_final=pnps %>% select(prot,"#NonSyn"=both_th_NonSyn,"#Syn"=both_th_Syn,"pNpS"=both_th_pNpS)
-
-write_tsv(pnps %>% select(prot,"#NonSyn"=both_th_NonSyn,"#Syn"=both_th_Syn,"pNpS"=both_th_pNpS) ,str_c(genome,"_pnps.tsv"))
-
+write_tsv(pnps %>% select(prot,NonSyn,Syn,pNpS) ,str_c(genome,"_pnps.tsv"))
 
 #FINAL TAB
 
@@ -145,11 +93,11 @@ e=snp %>% filter(alt_aa=="*") %>% filter(ref_aa!="*") %>% mutate("sub_nature"=c(
 
 f=snp %>% filter(ref_aa=="*") %>% filter(alt_aa!="*") %>% mutate("sub_nature"=c("STOPtoAA"))
 
-snp2=rbind(a,b,d,c,e,f)
+snp2=rbind(a,b,c,d,e,f)
 
 p1=snp2 %>% group_by(prot,frame) %>% count(sub_nature)
 
-final_tab= p1 %>% inner_join(pnps_final, by=c("prot"="prot")) 
+final_tab= p1 %>% inner_join(pnps %>% rename("#Syn"=Syn, "#NonSyn"=NonSyn), by=c("prot"="prot")) 
 
 coord=read_tsv(orf_coord, col_names=c("prot","start","end"))
 
@@ -175,6 +123,6 @@ final_tab$AAtoSTOP = replace_na(final_tab$AAtoSTOP,0)
 
 final_tab= final_tab %>% mutate("#total_snp"= Syn+Pos+`Neg>=-2`+`Neg<-2`+AAtoSTOP )
 
-write_tsv(final_tab %>% select(prot,start,end,frame,`#AA`,`#total_snp`,Syn,Pos,`Neg>=-2`,`Neg<-2`,AAtoSTOP, `#Syn`, `#NonSyn`, pNpS ),"summary_table.tsv")
 
-}
+
+write_tsv(final_tab %>% select(prot,start,end,frame,`#AA`,`#total_snp`,Syn,Pos,`Neg>=-2`,`Neg<-2`,AAtoSTOP, `#Syn`, `#NonSyn`, pNpS ),"summary_table.tsv")
