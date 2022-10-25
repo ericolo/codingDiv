@@ -20,6 +20,9 @@ http://emboss.open-bio.org/html/adm/ch01s01.html
 **Biopython v1.79**
 https://biopython.org/wiki/Download 
 
+**matplotlib v3.3.4**
+https://matplotlib.org/stable/users/installing/index.html
+
 **dna_features_viewer v3.1.1**
 https://github.com/Edinburgh-Genome-Foundry/DnaFeaturesViewer
 
