@@ -26,17 +26,18 @@ mapping_res=args[3]
 
 min_reads=as.integer(args[4])
 min_percentage=as.double(args[5])
+orf_coord=args[6]
 
 if (size<=20000) {
-  plot_size=12.3
+  plot_size=12.4
   window_size=15
   text_size=16
   } else if (size<=50000) {
-    plot_size=22.3
+    plot_size=22.4
     window_size=50
     text_size=16
     } else if (size>50000) {
-      plot_size=41.5
+      plot_size=41.6
       window_size=100
       text_size=18
     }

@@ -139,7 +139,7 @@ if [ $genome_size -lt 100000 ]
 then
 
 	##########################MAPPING plots (full orfs of course)
-	snp_plot.R $genome_name $genome_size $ref_trslt.snp_summary.tsv $min_reads $min_percentage
+	snp_plot.R $genome_name $genome_size $ref_trslt.snp_summary.tsv $min_reads $min_percentage $ref_orfs_tsv
 
 	map_with_pnps.py $genome_name $genome_size $ref_orfs
 
@@ -153,7 +153,7 @@ then
 elif [ $genome_size -gt 100000 ] && [ $force_svg = "Y" ]
 then
 	##########################MAPPING plots (full orfs of course)
-	snp_plot.R $genome_name $genome_size $ref_trslt.snp_summary.tsv $min_reads $min_percentage
+	snp_plot.R $genome_name $genome_size $ref_trslt.snp_summary.tsv $min_reads $min_percentage $ref_orfs_tsv
 
 	map_with_pnps.py $genome_name $genome_size $ref_orfs
 
