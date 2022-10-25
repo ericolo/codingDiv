@@ -26,7 +26,6 @@ mapping_res=args[3]
 
 min_reads=as.integer(args[4])
 min_percentage=as.double(args[5])
-orf_coord=args[6]
 
 if (size<=20000) {
   plot_size=12.4
