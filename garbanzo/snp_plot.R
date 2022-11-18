@@ -44,7 +44,8 @@ if (size<=20000) {
 ############################################################################
 
 
-snp=read_tsv(mapping_res)  %>% filter(snp_depth>=min_reads) %>% filter( (snp_depth/total_depth *100) >= min_percentage) #seuil pour enlever les erreurs
+snp=read_tsv(mapping_res)  %>% filter(snp_depth>=min_reads) %>% filter( (snp_depth/total_depth *100) >= min_percentage) 
+
 
 if ( dim(snp)[1]!=0 ) {
 
@@ -83,34 +84,45 @@ snp_na=snp_na %>% left_join(a,by=c("position_on_genome"="position_on_genome"))
 
 #RATIO calculation
 
-toto=snp_na %>% group_by(position_on_genome,frame,sub_nature) %>% summarise("propo"=sum(snp_depth)/total_depth,"pixel"=first(pixel)) %>% distinct() %>% group_by(pixel,frame,sub_nature) %>% summarise("ratio"=sum(propo)/window_size)
+toto=snp_na %>% group_by(position_on_genome,frame,sub_nature) %>% summarise("propo"=sum(snp_depth)/total_depth,"pixel"=first(pixel),"count_"=n()) %>% distinct() %>% group_by(pixel,frame,sub_nature) %>% summarise("ratio"=sum(propo)/window_size,"count_total"=sum(count_))
 
 toto=rbind(toto %>% filter(sub_nature %in% c("Neg<-2","Neg>=-2")) %>% mutate(ratio=-ratio),toto %>% filter(!sub_nature %in% c("Neg<-2","Neg>=-2") ))
+
+toto=rbind(toto %>% filter(sub_nature %in% c("Neg<-2","Neg>=-2")) %>% mutate(count_total=-count_total),toto %>% filter(!sub_nature %in% c("Neg<-2","Neg>=-2") ))
 
 toto$frame=factor(toto$frame, levels=c("3","2","1","-1","-2","-3"))
 
 ###############################################################
 
+a=toto %>% filter(is.na(ratio)) 
+a$count_total=NA
+
+b=toto %>% filter(!is.na(ratio)) 
+
+toto=rbind(a,b)
+
+#toto %>% print(n=2781)
+
 toto$frame=replace_na(toto$frame,1)
 
 ggplot(data=toto) +
-  geom_col(mapping = aes(x=factor(pixel), y=ratio, fill=sub_nature)) +
+  geom_col(mapping = aes(x=factor(pixel), y=count_total, fill=sub_nature)) +
   scale_fill_manual(values=c(`Neg<-2`="red",`Neg>=-2`="orange",Pos="green",Syn="skyblue",AAtoSTOP="black",STOPtoAA="#838383"))+
   theme_bw()+
   theme(legend.position = "bottom")+
   theme(legend.title=element_blank())+
   theme(axis.text = element_text(angle = 0))+
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+
-  theme(axis.title.x=element_blank(),
-        axis.text.x=element_blank(),
-        axis.ticks.x=element_blank())+
+  theme(axis.text.x=element_blank(),
+        axis.ticks.x=element_blank(),
+        axis.title=element_text(size=text_size-2))+
   facet_grid(rows=vars(frame), drop=TRUE)+
   theme(panel.background = element_rect(fill = "white",colour = "white") )+
   theme(plot.background = element_rect(fill = "white"))+
   ggtitle("Bar chart of substitutions colored by BLOSUM62 score")+
   theme(plot.title = element_text(size = text_size, face = "bold"))+
   theme(legend.text=element_text(size=text_size))+
-  labs(y=str_c("sum(SNP depth / total mapping depth) - per ",as.character(window_size)," nucleotide window"))+
+  labs(y="", x=str_c("Number of substitutions per ",window_size,"nt window"))+
   ggsave(str_c(genome,"_bar_chart.svg"),width=plot_size,height=6, bg="transparent")
 
 }

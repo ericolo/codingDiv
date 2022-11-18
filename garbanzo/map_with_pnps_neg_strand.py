@@ -148,7 +148,8 @@ for i in range(len(genomes)):
 	for elt in sjr:
 		sjr_plot=record.plot_feature(ax,elt,level=float(dprot_frame[elt.label]))
 
-	ax.set_title(genome+" "+str(size)+" nt | pN/pS ratio | negative strand", loc='left', weight='bold')
+	ax.set_xlabel("pN/pS ratio | negative strand",loc="left", weight='bold', color="black",size=12)
+	ax.xaxis.set_label_position('top')
 
 	dgenome_gc=defaultdict(list)
 
@@ -170,7 +171,12 @@ for i in range(len(genomes)):
 
 	ax2.plot(np.arange(0,size), dgenome_gc[genome], alpha=1,color="green")
 
-	ax2.set_xlabel("#mapped reads per position")
+	ax2.set_xlabel("#mapped reads per position (max="+str(max(dgenome_gc[genome]))+")")
+
+	#ax2.yaxis.set_label_position("right")
+	#ax2.yaxis.tick_right()
+
+	ax2.axes.get_yaxis().set_ticks([])
 
 	fig.savefig("./"+genome+'_neg_strand_pnps.svg', bbox_inches='tight', dpi=300)
 

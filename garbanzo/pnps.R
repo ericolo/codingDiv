@@ -37,6 +37,9 @@ for (i in 1:length(genomes)) {
 
 snp=read_tsv(mapping_orfs) %>% filter(snp_depth>=min_reads) %>% filter( (snp_depth/total_depth *100) >= min_percentage) %>% select(-total_depth,-total_snp_depth,-snp_depth,-total_snp_depth,-qual_score)
 
+#Saving filtered version
+snp_=read_tsv(mapping_orfs)  %>% filter(snp_depth>=min_reads) %>% filter( (snp_depth/total_depth *100) >= min_percentage)
+write_tsv(snp_ %>% select(-clu),"full_snp_table.tsv")
 
 ################################
   

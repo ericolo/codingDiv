@@ -104,7 +104,7 @@ for i in range(len(genomes)):
 	for elt in sjr:
 		sjr_plot=record.plot_feature(genome_plot,elt,level=float(dprot_frame[elt.label]))
 
-	genome_plot.set_title(genome+" "+str(size)+" nt | PHANOTATE prediction", loc='left', weight='bold', color="blue")
-
+	genome_plot.set_xlabel("PHANOTATE prediction",loc="left", weight='bold', color="blue",size=12)
+	genome_plot.xaxis.set_label_position('top')
 
 	genome_plot.figure.savefig("./"+genome+'_phanotate.svg', bbox_inches='tight', dpi=300)

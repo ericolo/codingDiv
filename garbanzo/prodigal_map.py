@@ -102,7 +102,9 @@ for i in range(len(genomes)):
 		sjr_plot=record.plot_feature(genome_plot,elt,level=float(dprot_frame[elt.label]))
 
 
-	genome_plot.set_title(genome+" "+str(size)+" nt | PRODIGAL prediction", loc='left', weight='bold', color="red")
+	genome_plot.set_title(genome+" ("+str(size)+" nt)", loc='center', weight='bold', color="black",size=15)
 
+	genome_plot.set_xlabel("PRODIGAL prediction\n ",loc="left", weight='bold', color="red",size=12)
+	genome_plot.xaxis.set_label_position('top')
 
 	genome_plot.figure.savefig("./"+genome+'_prodigal.svg', bbox_inches='tight', dpi=300)

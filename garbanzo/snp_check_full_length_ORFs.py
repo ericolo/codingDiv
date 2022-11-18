@@ -210,18 +210,25 @@ for snp in dgenome_snp:
 
 
 			if ("frame_1" in prot and nuc_index==1) or ("frame_2" in prot and nuc_index==2) or ("frame_3" in prot and nuc_index==3):
-				ref_codon=current_genome_seq[snp[0]]+current_genome_seq[snp[0]+1]+current_genome_seq[snp[0]+2]
+				if snp[0]<genome_size-2: #to manage the last positiion on the genome
+					ref_codon=current_genome_seq[snp[0]]+current_genome_seq[snp[0]+1]+current_genome_seq[snp[0]+2]
 
-				alt_codon=dgenome_snp[snp][1]+current_genome_seq[snp[0]+1]+current_genome_seq[snp[0]+2]
+					alt_codon=dgenome_snp[snp][1]+current_genome_seq[snp[0]+1]+current_genome_seq[snp[0]+2]
 
-				ref_aa=Seq.translate(ref_codon,table=genetic_code)
+					ref_aa=Seq.translate(ref_codon,table=genetic_code)
 
-				alt_aa=Seq.translate(alt_codon,table=genetic_code)
+					alt_aa=Seq.translate(alt_codon,table=genetic_code)
 
-				codon_position=snp[0]
+					codon_position=snp[0]
+
+					if alt_aa!="*" and ref_aa!="*":
+						print(prot,dprot_clu[prot],dgenome_snp[snp][-2],snp[0],current_frame,codon_position,ref_codon,ref_aa,dprop[ref_aa],"####",alt_codon,alt_aa,dprop[alt_aa],blosum_dict[(ref_aa,alt_aa)],dgenome_snp[snp][2],dgenome_snp[snp][3],dgenome_snp[snp][5],dgenome_snp[snp][4],sep="\t")
+
+					else:
+						print(prot,dprot_clu[prot],dgenome_snp[snp][-2],snp[0],current_frame,codon_position,ref_codon,ref_aa,dprop[ref_aa],"####",alt_codon,alt_aa,dprop[alt_aa],"NA",dgenome_snp[snp][2],dgenome_snp[snp][3],dgenome_snp[snp][5],dgenome_snp[snp][4],sep="\t")
 
 
-			elif ("frame_2" in prot and nuc_index==1) or ("frame_1" in prot and nuc_index==3) or ("frame_3" in prot and nuc_index==2):
+			elif snp[0]<genome_size-2 and ("frame_2" in prot and nuc_index==1) or ("frame_1" in prot and nuc_index==3) or ("frame_3" in prot and nuc_index==2):
 				ref_codon=current_genome_seq[snp[0]-2]+current_genome_seq[snp[0]-1]+current_genome_seq[snp[0]]
 
 				alt_codon=current_genome_seq[snp[0]-2]+current_genome_seq[snp[0]-1]+dgenome_snp[snp][1]
@@ -232,24 +239,31 @@ for snp in dgenome_snp:
 
 				codon_position=snp[0]-2
 
+				if alt_aa!="*" and ref_aa!="*":
+					print(prot,dprot_clu[prot],dgenome_snp[snp][-2],snp[0],current_frame,codon_position,ref_codon,ref_aa,dprop[ref_aa],"####",alt_codon,alt_aa,dprop[alt_aa],blosum_dict[(ref_aa,alt_aa)],dgenome_snp[snp][2],dgenome_snp[snp][3],dgenome_snp[snp][5],dgenome_snp[snp][4],sep="\t")
 
+				else:
+					print(prot,dprot_clu[prot],dgenome_snp[snp][-2],snp[0],current_frame,codon_position,ref_codon,ref_aa,dprop[ref_aa],"####",alt_codon,alt_aa,dprop[alt_aa],"NA",dgenome_snp[snp][2],dgenome_snp[snp][3],dgenome_snp[snp][5],dgenome_snp[snp][4],sep="\t")
+
+			
 			elif ("frame_3" in prot and nuc_index==1) or ("frame_2" in prot and nuc_index==3) or ("frame_1" in prot and nuc_index==2):
-				ref_codon=current_genome_seq[snp[0]-1] + current_genome_seq[snp[0]] + current_genome_seq[snp[0]+1]
+				if snp[0]<genome_size: #to manage the last positiion on the genome
+					ref_codon=current_genome_seq[snp[0]-1] + current_genome_seq[snp[0]] + current_genome_seq[snp[0]+1]
 
-				alt_codon=current_genome_seq[snp[0]-1] + dgenome_snp[snp][1] + current_genome_seq[snp[0]+1]
+					alt_codon=current_genome_seq[snp[0]-1] + dgenome_snp[snp][1] + current_genome_seq[snp[0]+1]
 
-				ref_aa=Seq.translate(ref_codon,table=genetic_code)
+					ref_aa=Seq.translate(ref_codon,table=genetic_code)
 
-				alt_aa=Seq.translate(alt_codon,table=genetic_code)
+					alt_aa=Seq.translate(alt_codon,table=genetic_code)
 
-				codon_position=snp[0]-1
+					codon_position=snp[0]-1
 
 
-			if alt_aa!="*" and ref_aa!="*":
-				print(prot,dprot_clu[prot],dgenome_snp[snp][-2],snp[0],current_frame,codon_position,ref_codon,ref_aa,dprop[ref_aa],"####",alt_codon,alt_aa,dprop[alt_aa],blosum_dict[(ref_aa,alt_aa)],dgenome_snp[snp][2],dgenome_snp[snp][3],dgenome_snp[snp][5],dgenome_snp[snp][4],sep="\t")
+					if alt_aa!="*" and ref_aa!="*":
+						print(prot,dprot_clu[prot],dgenome_snp[snp][-2],snp[0],current_frame,codon_position,ref_codon,ref_aa,dprop[ref_aa],"####",alt_codon,alt_aa,dprop[alt_aa],blosum_dict[(ref_aa,alt_aa)],dgenome_snp[snp][2],dgenome_snp[snp][3],dgenome_snp[snp][5],dgenome_snp[snp][4],sep="\t")
 
-			else:
-				print(prot,dprot_clu[prot],dgenome_snp[snp][-2],snp[0],current_frame,codon_position,ref_codon,ref_aa,dprop[ref_aa],"####",alt_codon,alt_aa,dprop[alt_aa],"NA",dgenome_snp[snp][2],dgenome_snp[snp][3],dgenome_snp[snp][5],dgenome_snp[snp][4],sep="\t")
+					else:
+						print(prot,dprot_clu[prot],dgenome_snp[snp][-2],snp[0],current_frame,codon_position,ref_codon,ref_aa,dprop[ref_aa],"####",alt_codon,alt_aa,dprop[alt_aa],"NA",dgenome_snp[snp][2],dgenome_snp[snp][3],dgenome_snp[snp][5],dgenome_snp[snp][4],sep="\t")
 
 
 		elif dgenome_snp[snp][-1]=="reverse" and re.search("frame_-[1|2|3]",prot):
@@ -266,34 +280,48 @@ for snp in dgenome_snp:
 
 				codon_position=snp[0]
 
+				if alt_aa!="*" and ref_aa!="*":
+					print(prot,dprot_clu[prot],dgenome_snp[snp][-2],snp[0],current_frame,codon_position,ref_codon,ref_aa,dprop[ref_aa],"####",alt_codon,alt_aa,dprop[alt_aa],blosum_dict[(ref_aa,alt_aa)],dgenome_snp[snp][2],dgenome_snp[snp][3],dgenome_snp[snp][5],dgenome_snp[snp][4],sep="\t")
+
+				else:
+					print(prot,dprot_clu[prot],dgenome_snp[snp][-2],snp[0],current_frame,codon_position,ref_codon,ref_aa,dprop[ref_aa],"####",alt_codon,alt_aa,dprop[alt_aa],"NA",dgenome_snp[snp][2],dgenome_snp[snp][3],dgenome_snp[snp][5],dgenome_snp[snp][4],sep="\t")
+
 
 			elif ("frame_-2" in prot and nuc_index==1) or ("frame_-1" in prot and nuc_index==3) or ("frame_-3" in prot and nuc_index==2):
-				ref_codon=current_genome_seq[snp[0]-2]+current_genome_seq[snp[0]-1]+current_genome_seq[snp[0]]
+				if snp[0]>2: #to manage the first positiion on the genome
+					ref_codon=current_genome_seq[snp[0]-2]+current_genome_seq[snp[0]-1]+current_genome_seq[snp[0]]
 
-				alt_codon=current_genome_seq[snp[0]-2]+current_genome_seq[snp[0]-1]+dgenome_snp[snp][1]
+					alt_codon=current_genome_seq[snp[0]-2]+current_genome_seq[snp[0]-1]+dgenome_snp[snp][1]
 
-				ref_aa=Seq.translate(ref_codon,table=genetic_code)
+					ref_aa=Seq.translate(ref_codon,table=genetic_code)
 
-				alt_aa=Seq.translate(alt_codon,table=genetic_code)
+					alt_aa=Seq.translate(alt_codon,table=genetic_code)
 
-				codon_position=snp[0]-2
+					codon_position=snp[0]-2
+
+					if alt_aa!="*" and ref_aa!="*":
+						print(prot,dprot_clu[prot],dgenome_snp[snp][-2],snp[0],current_frame,codon_position,ref_codon,ref_aa,dprop[ref_aa],"####",alt_codon,alt_aa,dprop[alt_aa],blosum_dict[(ref_aa,alt_aa)],dgenome_snp[snp][2],dgenome_snp[snp][3],dgenome_snp[snp][5],dgenome_snp[snp][4],sep="\t")
+
+					else:
+						print(prot,dprot_clu[prot],dgenome_snp[snp][-2],snp[0],current_frame,codon_position,ref_codon,ref_aa,dprop[ref_aa],"####",alt_codon,alt_aa,dprop[alt_aa],"NA",dgenome_snp[snp][2],dgenome_snp[snp][3],dgenome_snp[snp][5],dgenome_snp[snp][4],sep="\t")
 
 
 			elif ("frame_-3" in prot and nuc_index==1) or ("frame_-2" in prot and nuc_index==3) or ("frame_-1" in prot and nuc_index==2):
-				ref_codon=current_genome_seq[snp[0]-1] + current_genome_seq[snp[0]] + current_genome_seq[snp[0]+1]
+				if snp[0]>1: #to manage the first positiion on the genome
+					ref_codon=current_genome_seq[snp[0]-1] + current_genome_seq[snp[0]] + current_genome_seq[snp[0]+1]
 
-				alt_codon=current_genome_seq[snp[0]-1] + dgenome_snp[snp][1] + current_genome_seq[snp[0]+1]
+					alt_codon=current_genome_seq[snp[0]-1] + dgenome_snp[snp][1] + current_genome_seq[snp[0]+1]
 
-				ref_aa=Seq.translate(ref_codon,table=genetic_code)
+					ref_aa=Seq.translate(ref_codon,table=genetic_code)
 
-				alt_aa=Seq.translate(alt_codon,table=genetic_code)
+					alt_aa=Seq.translate(alt_codon,table=genetic_code)
 
-				codon_position=snp[0]-1
+					codon_position=snp[0]-1
 
 
-			if alt_aa!="*" and ref_aa!="*":
-				print(prot,dprot_clu[prot],dgenome_snp[snp][-2],snp[0],current_frame,codon_position,ref_codon,ref_aa,dprop[ref_aa],"####",alt_codon,alt_aa,dprop[alt_aa],blosum_dict[(ref_aa,alt_aa)],dgenome_snp[snp][2],dgenome_snp[snp][3],dgenome_snp[snp][5],dgenome_snp[snp][4],sep="\t")
+					if alt_aa!="*" and ref_aa!="*":
+						print(prot,dprot_clu[prot],dgenome_snp[snp][-2],snp[0],current_frame,codon_position,ref_codon,ref_aa,dprop[ref_aa],"####",alt_codon,alt_aa,dprop[alt_aa],blosum_dict[(ref_aa,alt_aa)],dgenome_snp[snp][2],dgenome_snp[snp][3],dgenome_snp[snp][5],dgenome_snp[snp][4],sep="\t")
 
-			else:
-				print(prot,dprot_clu[prot],dgenome_snp[snp][-2],snp[0],current_frame,codon_position,ref_codon,ref_aa,dprop[ref_aa],"####",alt_codon,alt_aa,dprop[alt_aa],"NA",dgenome_snp[snp][2],dgenome_snp[snp][3],dgenome_snp[snp][5],dgenome_snp[snp][4],sep="\t")
+					else:
+						print(prot,dprot_clu[prot],dgenome_snp[snp][-2],snp[0],current_frame,codon_position,ref_codon,ref_aa,dprop[ref_aa],"####",alt_codon,alt_aa,dprop[alt_aa],"NA",dgenome_snp[snp][2],dgenome_snp[snp][3],dgenome_snp[snp][5],dgenome_snp[snp][4],sep="\t")
 
