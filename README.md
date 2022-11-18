@@ -106,4 +106,4 @@ The other created directories contain intermediate files such as mapping results
 If your final files are empty, you can check the `stdout.err` file which is a raw output file.
 
 Expected plot:
-![alt text](https://drive.google.com/file/d/1tjHziIe0J7N43GqA1VKhoe1I2qfTlvsa/view?usp=sharing)
+![alt text](https://drive.google.com/drive/u/0/folders/1R2K0R7q6S7QKxnQo6P0ucxIvuN3o3Hon)
