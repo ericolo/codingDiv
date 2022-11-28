@@ -39,6 +39,8 @@ RUN pip install phanotate
 
 RUN apt-get install prodigal=1:2.6.3-5
 
+RUN echo "test"
+
 #samtools 
 
 RUN apt install wget
@@ -48,9 +50,11 @@ RUN wget https://github.com/samtools/samtools/releases/download/1.10/samtools-1.
 RUN tar xvjf samtools-1.10.tar.bz2
 
 RUN cd samtools-1.10
-RUN make .
+RUN make
 
 ENV PATH=$PATH:/samtools-1.10
+
+RUN echo $PATH
 
 RUN cd /
 
@@ -61,9 +65,11 @@ RUN wget https://github.com/samtools/bcftools/releases/download/1.14/bcftools-1.
 RUN tar xvjf bcftools-1.14.tar.bz2
 
 RUN cd bcftools-1.14
-RUN make .
+RUN make
 
 ENV PATH=$PATH:/bcftools-1.14
+
+RUN echo $PATH
 
 RUN cd /
 
@@ -80,5 +86,10 @@ RUN chmod +x /potential-garbanzo/garbanzo/*
 
 ENV PATH=$PATH:/potential-garbanzo/garbanzo
 
-WORKDIR /data
+RUN echo $PATH
 
+#WORKDIR /data
+#It works like this, files will be written in the given dir
+#docker run -v /Users/ONE/Downloads/codingdiv:/data codingdiv codingDiv.sh tylcv.fna blast_hits_90.fna 90 1 2 1 3 N
+#There is a problem with the makes
+RUN cd /
