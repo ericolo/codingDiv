@@ -29,34 +29,46 @@ RUN apt install -y r-base
 
 RUN apt-get install -y libxml2-dev libcurl4-openssl-dev libssl-dev
 
-RUN Rscript -e 'install.packages("ggplot2")'
+#Installing specific versions to avoid update problems
+RUN apt install wget
 
+#tidyverse
+RUN wget http://cran.r-project.org/src/contrib/Archive/tidyverse/tidyverse_1.3.0.tar.gz
+
+#To get all dependencies
 RUN Rscript -e 'install.packages("tidyverse")'
 
-#prodigal & phanotate
+#Then the right version
+RUN R CMD INSTALL tidyverse_1.3.0.tar.gz
+
+#ggplot2
+RUN wget http://cran.r-project.org/src/contrib/Archive/ggplot2/ggplot2_3.3.5.tar.gz
+
+RUN Rscript -e 'install.packages("ggplot2")'
+
+RUN R CMD INSTALL ggplot2_3.3.5.tar.gz
+
+#prodigal & phanotate & getorf
 
 RUN pip install phanotate
 
 RUN apt-get install prodigal=1:2.6.3-5
 
-RUN echo "test"
+RUN apt-get install -y emboss=6.6.0+dfsg-11ubuntu1
 
 #samtools 
 
-RUN apt install wget
+RUN bash
 
 RUN wget https://github.com/samtools/samtools/releases/download/1.10/samtools-1.10.tar.bz2
 
 RUN tar xvjf samtools-1.10.tar.bz2
 
-RUN cd samtools-1.10
-RUN make
+RUN make -C samtools-1.10
 
 ENV PATH=$PATH:/samtools-1.10
 
 RUN echo $PATH
-
-RUN cd /
 
 #bcftools
 
@@ -64,17 +76,22 @@ RUN wget https://github.com/samtools/bcftools/releases/download/1.14/bcftools-1.
 
 RUN tar xvjf bcftools-1.14.tar.bz2
 
-RUN cd bcftools-1.14
-RUN make
+RUN make -C bcftools-1.14
 
 ENV PATH=$PATH:/bcftools-1.14
 
 RUN echo $PATH
 
-RUN cd /
-
 #bwa
 RUN apt-get install bwa=0.7.17-6
+
+#svglite to save snp plot as svg
+
+RUN apt install -y libfontconfig1-dev
+
+RUN Rscript -e 'install.packages("svglite")'
+
+RUN pip install lxml
 
 #codingDiv repository
 
@@ -88,8 +105,9 @@ ENV PATH=$PATH:/potential-garbanzo/garbanzo
 
 RUN echo $PATH
 
-#WORKDIR /data
+WORKDIR /data
+
 #It works like this, files will be written in the given dir
 #docker run -v /Users/ONE/Downloads/codingdiv:/data codingdiv codingDiv.sh tylcv.fna blast_hits_90.fna 90 1 2 1 3 N
-#There is a problem with the makes
-RUN cd /
+
+#docker build --tag codingdiv .
