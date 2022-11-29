@@ -75,8 +75,8 @@ if (!"NonSyn" %in% x$sub_nature) {
   unlink("temp.tsv")
   x=x %>% add_row(prot=NA,sub_nature="NonSyn",count_type=NA)}
 
-#0 & 0.5 are minimal values
-pnps = x %>% spread(sub_nature,count_type) %>% replace_na(list(Syn = 0.5, NonSyn = 0)) %>% mutate("pNpS"=NonSyn/Syn )
+#0 is the minimal value, but keep in mind that divding by 0 will create Inf values
+pnps = x %>% spread(sub_nature,count_type) %>% replace_na(list(Syn = 0, NonSyn = 0)) %>% mutate("pNpS"=NonSyn/Syn )
 
 }
 

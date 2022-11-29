@@ -103,7 +103,8 @@ toto=rbind(a,b)
 
 #toto %>% print(n=2781)
 
-toto$frame=replace_na(toto$frame,1)
+#R v4 does not allow replacement with a different type
+toto$frame=replace_na(toto$frame,as.factor(1))
 
 ggplot(data=toto) +
   geom_col(mapping = aes(x=factor(pixel), y=count_total, fill=sub_nature)) +
