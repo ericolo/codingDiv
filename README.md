@@ -3,8 +3,7 @@ garbanzo means pois-chiche, it was suggested by github
 
 Exploring metagenome microdiversity to better find protein coding genes
 
-```diff
--# Usage with docker container
+# Usage with docker container
 You need to have installed the docker app:
 
 https://docs.docker.com/get-docker/ 
@@ -27,7 +26,7 @@ docker run -v /Users/ONE/Downloads/codingdiv:/data codingdiv codingDiv.sh tylcv.
 The -v option allows you to read and write files on your OS from your container, just specify your working directory, mine was `/Users/ONE/Downloads/codingdiv` and add `:/data` as it is the working directory in the container. 
 
 Normally you should get three files in the `final_results` directory, two tables and an SVG plot as the one showed below.
-```
+
 
 # Required tools and versions
 **Python v3.6.4 & R v3.6.2**
