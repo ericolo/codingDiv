@@ -97,6 +97,10 @@ RUN pip install lxml
 
 RUN apt install -y git
 
+#To not cach the git clone command as repository can change
+#This will change if the github repo is modified
+ADD https://api.github.com/repos/ericolo/potential-garbanzo/git/refs/heads/main version.json
+
 RUN git clone https://github.com/ericolo/potential-garbanzo
 
 RUN chmod +x /potential-garbanzo/garbanzo/*
@@ -107,7 +111,12 @@ RUN echo $PATH
 
 WORKDIR /data
 
+#To not type codingDiv.sh 
+CMD ["bash", "codingDiv.sh"]
+
 #It works like this, files will be written in the given dir
 #docker run -v /Users/ONE/Downloads/codingdiv:/data codingdiv codingDiv.sh tylcv.fna blast_hits_90.fna 90 1 2 1 3 N
+
+#docker run -v /Users/ONE/Downloads/codingdiv:/data codingdiv tylcv.fna blast_hits_90.fna 90 1 2 1 3 N
 
 #docker build --tag codingdiv .
