@@ -11,13 +11,17 @@ https://docs.docker.com/get-docker/
 
 Once your docker ins running, clone the repository and move into the `potential-garbanzo` directory, then run:
 
-`docker build --tag codingdiv .`
+```diff
+- docker build --tag codingdiv .
+`
 
 This will take around 20 minutes the first time but will be cached if you need to rebuild it in case of an update.
 
 You have now built your docker image named `codingdiv`, run the example to test if it's working:
 
-`docker run -v /Users/ONE/Downloads/codingdiv:/data codingdiv codingDiv.sh tylcv.fna blast_hits_90.fna 90 1 2 1 3 N`
+```
+- docker run -v /Users/ONE/Downloads/codingdiv:/data codingdiv codingDiv.sh tylcv.fna blast_hits_90.fna 90 1 2 1 3 N
+```
 
 The -v option allows you to read and write files on your OS from your container, just specify your working directory, mine was `/Users/ONE/Downloads/codingdiv` and add `:/data` as it is the working directory in the container. 
 
