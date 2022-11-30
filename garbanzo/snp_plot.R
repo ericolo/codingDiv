@@ -28,15 +28,15 @@ min_reads=as.integer(args[4])
 min_percentage=as.double(args[5])
 
 if (size<=20000) {
-  plot_size=10
+  plot_size=10.2
   window_size=15
   text_size=13
   } else if (size<=50000) {
-    plot_size=20
+    plot_size=20.2
     window_size=50
     text_size=13
     } else if (size>50000) {
-      plot_size=39.2
+      plot_size=39.4
       window_size=100
       text_size=15
     }
