@@ -13,7 +13,7 @@ Once your docker ins running, clone the repository and move into the `potential-
 
 ```diff
 - docker build --tag codingdiv .
-`
+```
 
 This will take around 20 minutes the first time but will be cached if you need to rebuild it in case of an update.
 
