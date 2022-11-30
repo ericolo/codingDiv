@@ -3,16 +3,15 @@ garbanzo means pois-chiche, it was suggested by github
 
 Exploring metagenome microdiversity to better find protein coding genes
 
-# <span style="color:red"> Usage with docker container </span>.
-
-<span style="color:red">
+# Usage with docker container
 You need to have installed the docker app:
 
 https://docs.docker.com/get-docker/ 
 
+
 Once your docker ins running, clone the repository and move into the `potential-garbanzo` directory, then run:
 
-```bash
+```
 docker build --tag codingdiv .
 ```
 
@@ -20,15 +19,13 @@ This will take around 20 minutes the first time but will be cached if you need t
 
 You have now built your docker image named `codingdiv`, run the example to test if it's working:
 
-```bash
+```
 docker run -v /Users/ONE/Downloads/codingdiv:/data codingdiv codingDiv.sh tylcv.fna blast_hits_90.fna 90 1 2 1 3 N
 ```
 
 The -v option allows you to read and write files on your OS from your container, just specify your working directory, mine was `/Users/ONE/Downloads/codingdiv` and add `:/data` as it is the working directory in the container. 
 
 Normally you should get three files in the `final_results` directory, two tables and an SVG plot as the one showed below.
-
-</span>
 
 
 # Required tools and versions
