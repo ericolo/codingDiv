@@ -19,7 +19,7 @@ This will take around 20 minutes the first time but will be cached if you need t
 
 You have now built your docker image named `codingdiv`, run the example to test if it's working:
 
-```
+```diff
 - docker run -v /Users/ONE/Downloads/codingdiv:/data codingdiv codingDiv.sh tylcv.fna blast_hits_90.fna 90 1 2 1 3 N
 ```
 
