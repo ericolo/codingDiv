@@ -137,7 +137,7 @@ for i in range(len(genomes)):
 	for elt in sjr:
 		sjr_plot=record.plot_feature(genome_plot,elt,level=float(dprot_frame[elt.label]))
 
-	genome_plot.set_xlabel("pN/pS ratio | positive strand",loc="left", weight='bold', color="black",size=12)
+	genome_plot.set_xlabel("pNeg/pS ratio | positive strand",loc="left", weight='bold', color="black",size=12)
 	genome_plot.xaxis.set_label_position('top')
 
 

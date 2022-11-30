@@ -148,7 +148,7 @@ for i in range(len(genomes)):
 	for elt in sjr:
 		sjr_plot=record.plot_feature(ax,elt,level=float(dprot_frame[elt.label]))
 
-	ax.set_xlabel("pN/pS ratio | negative strand",loc="left", weight='bold', color="black",size=12)
+	ax.set_xlabel("pNeg/pS ratio | negative strand",loc="left", weight='bold', color="black",size=12)
 	ax.xaxis.set_label_position('top')
 
 	dgenome_gc=defaultdict(list)
@@ -203,5 +203,5 @@ cb3 = mpl.colorbar.ColorbarBase(ax, cmap=cmap,
                                 ticks=bounds,
                                 spacing='uniform',
                                 orientation='horizontal')
-cb3.set_label('pN/pS gradient',labelpad=-26, y=1.5, x=-0.20, weight='bold')
+cb3.set_label('pNeg/pS gradient',labelpad=-26, y=1.5, x=-0.20, weight='bold')
 fig.savefig("pnps_legend.svg", bbox_inches='tight', dpi=300)

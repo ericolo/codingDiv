@@ -100,7 +100,7 @@ snp2=rbind(a,b,c,d,e,f)
 
 p1=snp2 %>% group_by(prot,frame) %>% count(sub_nature)
 
-final_tab= p1 %>% inner_join(pnps %>% rename("#Syn"=Syn, "#NonSyn"=NonSyn), by=c("prot"="prot")) 
+final_tab= p1 %>% inner_join(pnps %>% rename("#Syn"=Syn, "#Neg"=NonSyn), by=c("prot"="prot")) 
 
 coord=read_tsv(orf_coord, col_names=c("prot","start","end"))
 
@@ -126,6 +126,10 @@ final_tab$AAtoSTOP = replace_na(final_tab$AAtoSTOP,0)
 
 final_tab= final_tab %>% mutate("#total_snp"= Syn+Pos+`Neg>=-2`+`Neg<-2`+AAtoSTOP )
 
+final_tab= final_tab %>% rename("pNeg/pS"=pNpS)
 
+final_tab= final_tab %>% mutate("#NonSyn"=Pos+`Neg>=-2`+`Neg<-2`+AAtoSTOP)
 
-write_tsv(final_tab %>% select(prot,start,end,frame,`#AA`,`#total_snp`,Syn,Pos,`Neg>=-2`,`Neg<-2`,AAtoSTOP, `#Syn`, `#NonSyn`, pNpS ),"summary_table.tsv")
+final_tab= final_tab %>% mutate("pN/pS"=(Pos+`Neg>=-2`+`Neg<-2`+AAtoSTOP)/Syn)
+
+write_tsv(final_tab %>% select(prot,start,end,frame,`#AA`,`#total_snp`,Syn,Pos,`Neg>=-2`,`Neg<-2`,AAtoSTOP, `#Syn`,`#Neg`, `#NonSyn`, `pN/pS`, `pNeg/pS` ),"summary_table.tsv")
