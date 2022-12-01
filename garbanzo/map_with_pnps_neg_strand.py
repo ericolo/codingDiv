@@ -180,9 +180,9 @@ for i in range(len(genomes)):
 			color="#a02d30"
 
 		if prot in dprot_fb and dprot_fb[prot]!=0 and dprot_coord[prot][1]-dprot_coord[prot][0] >= 100:
-			sjr.append(GraphicFeature(start=dprot_coord[prot][1], end=dprot_coord[prot][1]+50, strand=0, color=color, label=prot ))
+			sjr.append(GraphicFeature(start=dprot_coord[prot][1], end=dprot_coord[prot][1]-50, strand=0, color=color, label=prot ))
 		elif dprot_fb[prot]!=0 and dprot_coord[prot][1]-dprot_coord[prot][0] < 100:
-			sjr.append(GraphicFeature(start=dprot_coord[prot][1], end=dprot_coord[prot][1]+25, strand=0, color=color, label=prot ))
+			sjr.append(GraphicFeature(start=dprot_coord[prot][1], end=dprot_coord[prot][1]-25, strand=0, color=color, label=prot ))
 
 	record = GraphicRecord(sequence_length=size, features=features)
 
