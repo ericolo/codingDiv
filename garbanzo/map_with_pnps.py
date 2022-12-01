@@ -133,10 +133,43 @@ for i in range(len(genomes)):
 		
 		sjr.append(GraphicFeature(start=dprot_coord[prot][0], end=dprot_coord[prot][1], strand=1, color=color, label=prot ))
 
-		if prot in dprot_fb and dprot_coord[prot][1]-dprot_coord[prot][0] > 100:
-			sjr.append(GraphicFeature(start=dprot_coord[prot][0], end=dprot_coord[prot][1]+50, strand=0, color=color, label=prot ))
+		if dprot_fb[prot]=="NA":
+			color="gray"
+
+		elif dprot_fb[prot]<=0.2:
+			color="#2c4099"
+
+		elif dprot_fb[prot]<=0.4:
+			color="#5f62ae"
+
+		elif dprot_fb[prot]<=0.6:
+			color="#8887c2"
+
+		elif dprot_fb[prot]<=0.8:
+			color="#b0add6"
+
+		elif dprot_fb[prot]<1:
+			color="#d7d5eb"
+
+		elif dprot_fb[prot]<=1.2:
+			color="#ffffff"
+
+		elif dprot_fb[prot]<=1.4:
+			color="#eecac6"
+
+		elif dprot_fb[prot]<=1.6:
+			color="#d89791"
+
+		elif dprot_fb[prot]<=1.8:
+			color="#be645e"
+
+		elif dprot_fb[prot]>1.8:
+			color="#a02d30"
+
+		if prot in dprot_fb and dprot_fb[prot]!=0 and dprot_coord[prot][1]-dprot_coord[prot][0] > 100:
+			sjr.append(GraphicFeature(start=dprot_coord[prot][0], end=dprot_coord[prot][0]+50, strand=0, color=color, label=prot ))
 		else:
-			sjr.append(GraphicFeature(start=dprot_coord[prot][0], end=dprot_coord[prot][1]+25, strand=0, color=color, label=prot ))
+			sjr.append(GraphicFeature(start=dprot_coord[prot][0], end=dprot_coord[prot][0]+25, strand=0, color=color, label=prot ))
 
 
 	record = GraphicRecord(sequence_length=size, features=features)
