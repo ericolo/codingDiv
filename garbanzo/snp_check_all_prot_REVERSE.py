@@ -210,7 +210,6 @@ for snp in dgenome_snp:
 		if dgenome_snp[snp][-1]=="forward" and current_strand=="+":
 			current_genome_seq=genome_seq
 
-			print(snp)
 
 			if (dpos_frame[dprot_coord[prot][0]]==1 and nuc_index==1) or (dpos_frame[dprot_coord[prot][0]]==2 and nuc_index==2) or (dpos_frame[dprot_coord[prot][0]]==3 and nuc_index==3):
 				ref_codon=current_genome_seq[snp[0]]+current_genome_seq[snp[0]+1]+current_genome_seq[snp[0]+2]
@@ -223,6 +222,12 @@ for snp in dgenome_snp:
 
 				codon_position=snp[0]
 
+				if alt_aa!="*" and ref_aa!="*":
+					print(prot,dprot_clu[prot],dgenome_snp[snp][-2],snp[0],str(dpos_frame[dprot_coord[prot][0]]),codon_position,ref_codon,ref_aa,dprop[ref_aa],"####",alt_codon,alt_aa,dprop[alt_aa],blosum_dict[(ref_aa,alt_aa)],dgenome_snp[snp][2],dgenome_snp[snp][3],dgenome_snp[snp][5],dgenome_snp[snp][4],sep="\t")
+
+				else:
+					print(prot,dprot_clu[prot],dgenome_snp[snp][-2],snp[0],str(dpos_frame[dprot_coord[prot][0]]),codon_position,ref_codon,ref_aa,dprop[ref_aa],"####",alt_codon,alt_aa,dprop[alt_aa],"NA",dgenome_snp[snp][2],dgenome_snp[snp][3],dgenome_snp[snp][5],dgenome_snp[snp][4],sep="\t")
+
 
 			elif (dpos_frame[dprot_coord[prot][0]]==2 and nuc_index==1) or (dpos_frame[dprot_coord[prot][0]]==1 and nuc_index==3) or (dpos_frame[dprot_coord[prot][0]]==3 and nuc_index==2):
 				ref_codon=current_genome_seq[snp[0]-2]+current_genome_seq[snp[0]-1]+current_genome_seq[snp[0]]
@@ -234,6 +239,12 @@ for snp in dgenome_snp:
 				alt_aa=Seq.translate(alt_codon,table=genetic_code)
 
 				codon_position=snp[0]-2
+
+				if alt_aa!="*" and ref_aa!="*":
+					print(prot,dprot_clu[prot],dgenome_snp[snp][-2],snp[0],str(dpos_frame[dprot_coord[prot][0]]),codon_position,ref_codon,ref_aa,dprop[ref_aa],"####",alt_codon,alt_aa,dprop[alt_aa],blosum_dict[(ref_aa,alt_aa)],dgenome_snp[snp][2],dgenome_snp[snp][3],dgenome_snp[snp][5],dgenome_snp[snp][4],sep="\t")
+
+				else:
+					print(prot,dprot_clu[prot],dgenome_snp[snp][-2],snp[0],str(dpos_frame[dprot_coord[prot][0]]),codon_position,ref_codon,ref_aa,dprop[ref_aa],"####",alt_codon,alt_aa,dprop[alt_aa],"NA",dgenome_snp[snp][2],dgenome_snp[snp][3],dgenome_snp[snp][5],dgenome_snp[snp][4],sep="\t")
 
 
 			elif (dpos_frame[dprot_coord[prot][0]]==3 and nuc_index==1) or (dpos_frame[dprot_coord[prot][0]]==2 and nuc_index==3) or (dpos_frame[dprot_coord[prot][0]]==1 and nuc_index==2):
@@ -248,18 +259,16 @@ for snp in dgenome_snp:
 				codon_position=snp[0]-1
 
 
-			if alt_aa!="*" and ref_aa!="*":
-				print(prot,dprot_clu[prot],dgenome_snp[snp][-2],snp[0],str(dpos_frame[dprot_coord[prot][0]]),codon_position,ref_codon,ref_aa,dprop[ref_aa],"####",alt_codon,alt_aa,dprop[alt_aa],blosum_dict[(ref_aa,alt_aa)],dgenome_snp[snp][2],dgenome_snp[snp][3],dgenome_snp[snp][5],dgenome_snp[snp][4],sep="\t")
+				if alt_aa!="*" and ref_aa!="*":
+					print(prot,dprot_clu[prot],dgenome_snp[snp][-2],snp[0],str(dpos_frame[dprot_coord[prot][0]]),codon_position,ref_codon,ref_aa,dprop[ref_aa],"####",alt_codon,alt_aa,dprop[alt_aa],blosum_dict[(ref_aa,alt_aa)],dgenome_snp[snp][2],dgenome_snp[snp][3],dgenome_snp[snp][5],dgenome_snp[snp][4],sep="\t")
 
-			else:
-				print(prot,dprot_clu[prot],dgenome_snp[snp][-2],snp[0],str(dpos_frame[dprot_coord[prot][0]]),codon_position,ref_codon,ref_aa,dprop[ref_aa],"####",alt_codon,alt_aa,dprop[alt_aa],"NA",dgenome_snp[snp][2],dgenome_snp[snp][3],dgenome_snp[snp][5],dgenome_snp[snp][4],sep="\t")
+				else:
+					print(prot,dprot_clu[prot],dgenome_snp[snp][-2],snp[0],str(dpos_frame[dprot_coord[prot][0]]),codon_position,ref_codon,ref_aa,dprop[ref_aa],"####",alt_codon,alt_aa,dprop[alt_aa],"NA",dgenome_snp[snp][2],dgenome_snp[snp][3],dgenome_snp[snp][5],dgenome_snp[snp][4],sep="\t")
 
 
 		elif dgenome_snp[snp][-1]=="reverse" and current_strand=="-":
 			current_genome_seq=rev_genome_seq
 
-			print(snp)
-
 			if (dpos_frame[dprot_coord[prot][0]]==1 and nuc_index==1) or (dpos_frame[dprot_coord[prot][0]]==2 and nuc_index==2) or (dpos_frame[dprot_coord[prot][0]]==3 and nuc_index==3):
 				ref_codon=current_genome_seq[snp[0]]+current_genome_seq[snp[0]+1]+current_genome_seq[snp[0]+2]
 
@@ -270,6 +279,13 @@ for snp in dgenome_snp:
 				alt_aa=Seq.translate(alt_codon,table=genetic_code)
 
 				codon_position=snp[0]
+
+				if alt_aa!="*" and ref_aa!="*":
+					print(prot,dprot_clu[prot],dgenome_snp[snp][-2],snp[0],current_strand+str(dpos_frame[dprot_coord[prot][0]]),codon_position,ref_codon,ref_aa,dprop[ref_aa],"####",alt_codon,alt_aa,dprop[alt_aa],blosum_dict[(ref_aa,alt_aa)],dgenome_snp[snp][2],dgenome_snp[snp][3],dgenome_snp[snp][5],dgenome_snp[snp][4],sep="\t")
+
+				else:
+					print(prot,dprot_clu[prot],dgenome_snp[snp][-2],snp[0],current_strand+str(dpos_frame[dprot_coord[prot][0]]),codon_position,ref_codon,ref_aa,dprop[ref_aa],"####",alt_codon,alt_aa,dprop[alt_aa],"NA",dgenome_snp[snp][2],dgenome_snp[snp][3],dgenome_snp[snp][5],dgenome_snp[snp][4],sep="\t")
+
 
 
 			elif (dpos_frame[dprot_coord[prot][0]]==2 and nuc_index==1) or (dpos_frame[dprot_coord[prot][0]]==1 and nuc_index==3) or (dpos_frame[dprot_coord[prot][0]]==3 and nuc_index==2):
@@ -282,6 +298,12 @@ for snp in dgenome_snp:
 				alt_aa=Seq.translate(alt_codon,table=genetic_code)
 
 				codon_position=snp[0]-2
+
+				if alt_aa!="*" and ref_aa!="*":
+					print(prot,dprot_clu[prot],dgenome_snp[snp][-2],snp[0],current_strand+str(dpos_frame[dprot_coord[prot][0]]),codon_position,ref_codon,ref_aa,dprop[ref_aa],"####",alt_codon,alt_aa,dprop[alt_aa],blosum_dict[(ref_aa,alt_aa)],dgenome_snp[snp][2],dgenome_snp[snp][3],dgenome_snp[snp][5],dgenome_snp[snp][4],sep="\t")
+
+				else:
+					print(prot,dprot_clu[prot],dgenome_snp[snp][-2],snp[0],current_strand+str(dpos_frame[dprot_coord[prot][0]]),codon_position,ref_codon,ref_aa,dprop[ref_aa],"####",alt_codon,alt_aa,dprop[alt_aa],"NA",dgenome_snp[snp][2],dgenome_snp[snp][3],dgenome_snp[snp][5],dgenome_snp[snp][4],sep="\t")
 
 
 			elif (dpos_frame[dprot_coord[prot][0]]==3 and nuc_index==1) or (dpos_frame[dprot_coord[prot][0]]==2 and nuc_index==3) or (dpos_frame[dprot_coord[prot][0]]==1 and nuc_index==2):
@@ -296,9 +318,9 @@ for snp in dgenome_snp:
 				codon_position=snp[0]-1
 
 
-			if alt_aa!="*" and ref_aa!="*":
-				print(prot,dprot_clu[prot],dgenome_snp[snp][-2],snp[0],current_strand+str(dpos_frame[dprot_coord[prot][0]]),codon_position,ref_codon,ref_aa,dprop[ref_aa],"####",alt_codon,alt_aa,dprop[alt_aa],blosum_dict[(ref_aa,alt_aa)],dgenome_snp[snp][2],dgenome_snp[snp][3],dgenome_snp[snp][5],dgenome_snp[snp][4],sep="\t")
+				if alt_aa!="*" and ref_aa!="*":
+					print(prot,dprot_clu[prot],dgenome_snp[snp][-2],snp[0],current_strand+str(dpos_frame[dprot_coord[prot][0]]),codon_position,ref_codon,ref_aa,dprop[ref_aa],"####",alt_codon,alt_aa,dprop[alt_aa],blosum_dict[(ref_aa,alt_aa)],dgenome_snp[snp][2],dgenome_snp[snp][3],dgenome_snp[snp][5],dgenome_snp[snp][4],sep="\t")
 
-			else:
-				print(prot,dprot_clu[prot],dgenome_snp[snp][-2],snp[0],current_strand+str(dpos_frame[dprot_coord[prot][0]]),codon_position,ref_codon,ref_aa,dprop[ref_aa],"####",alt_codon,alt_aa,dprop[alt_aa],"NA",dgenome_snp[snp][2],dgenome_snp[snp][3],dgenome_snp[snp][5],dgenome_snp[snp][4],sep="\t")
+				else:
+					print(prot,dprot_clu[prot],dgenome_snp[snp][-2],snp[0],current_strand+str(dpos_frame[dprot_coord[prot][0]]),codon_position,ref_codon,ref_aa,dprop[ref_aa],"####",alt_codon,alt_aa,dprop[alt_aa],"NA",dgenome_snp[snp][2],dgenome_snp[snp][3],dgenome_snp[snp][5],dgenome_snp[snp][4],sep="\t")
 
