@@ -210,6 +210,7 @@ for snp in dgenome_snp:
 		if dgenome_snp[snp][-1]=="forward" and current_strand=="+":
 			current_genome_seq=genome_seq
 
+			print(snp)
 
 			if (dpos_frame[dprot_coord[prot][0]]==1 and nuc_index==1) or (dpos_frame[dprot_coord[prot][0]]==2 and nuc_index==2) or (dpos_frame[dprot_coord[prot][0]]==3 and nuc_index==3):
 				ref_codon=current_genome_seq[snp[0]]+current_genome_seq[snp[0]+1]+current_genome_seq[snp[0]+2]
@@ -256,6 +257,8 @@ for snp in dgenome_snp:
 
 		elif dgenome_snp[snp][-1]=="reverse" and current_strand=="-":
 			current_genome_seq=rev_genome_seq
+
+			print(snp)
 
 			if (dpos_frame[dprot_coord[prot][0]]==1 and nuc_index==1) or (dpos_frame[dprot_coord[prot][0]]==2 and nuc_index==2) or (dpos_frame[dprot_coord[prot][0]]==3 and nuc_index==3):
 				ref_codon=current_genome_seq[snp[0]]+current_genome_seq[snp[0]+1]+current_genome_seq[snp[0]+2]
