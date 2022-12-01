@@ -168,7 +168,7 @@ for i in range(len(genomes)):
 
 		if prot in dprot_fb and dprot_fb[prot]!=0 and dprot_coord[prot][1]-dprot_coord[prot][0] > 100:
 			sjr.append(GraphicFeature(start=dprot_coord[prot][0], end=dprot_coord[prot][0]+50, strand=0, color=color, label=prot ))
-		else:
+		elif dprot_fb[prot]!=0 and dprot_coord[prot][1]-dprot_coord[prot][0] < 100:
 			sjr.append(GraphicFeature(start=dprot_coord[prot][0], end=dprot_coord[prot][0]+25, strand=0, color=color, label=prot ))
 
 
