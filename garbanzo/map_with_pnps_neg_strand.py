@@ -247,5 +247,5 @@ cb3 = mpl.colorbar.ColorbarBase(ax, cmap=cmap,
                                 ticks=bounds,
                                 spacing='uniform',
                                 orientation='horizontal')
-cb3.set_label('pNeg/pS gradient',labelpad=-26, y=1.5, x=-0.18, weight='bold')
+cb3.set_label('pNeg/pS gradient',labelpad=-26, y=1.5, x=-0.22, weight='bold')
 fig.savefig("pnps_legend.svg", bbox_inches='tight', dpi=300)
