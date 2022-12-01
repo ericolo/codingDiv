@@ -67,16 +67,22 @@ for i in range(len(genomes)):
 	 
 	dprot_pnps=defaultdict(float)
 
-	with open(genome+"_pnps.tsv","r") as f2:
+	dprot_fb=defaultdict(float)
+
+	with open("summary_table.tsv","r") as f2:
 		next(f2)
 		for li in f2:
 			li=li.rstrip()
 			lp=li.split("\t")
 
-			if lp[-1]!="NA":
-				dprot_pnps[lp[0].rstrip("+-")]=float(lp[-1])
-			elif lp[-1]=="NA":
-				dprot_pnps[lp[-1]]="NA"
+			if lp[-3]!="NA":
+				dprot_pnps[lp[0].rstrip("+-")]=float(lp[-3])
+			elif lp[-3]=="NA":
+				dprot_pnps[lp[-3]]="NA"
+
+			#For the false beginnings (50 nucleotides tested if >100, else 25)
+			if lp[-2]=="yes":
+				dprot_fb[lp[0].rstrip("+-")]=float(lp[-1])
 
 	for prot in dprot_coord:
 		if prot not in dprot_pnps:
@@ -126,6 +132,11 @@ for i in range(len(genomes)):
 
 		
 		sjr.append(GraphicFeature(start=dprot_coord[prot][0], end=dprot_coord[prot][1], strand=1, color=color, label=prot ))
+
+		if prot in dprot_fb and dprot_coord[prot][1]-dprot_coord[prot][0] > 100:
+			sjr.append(GraphicFeature(start=dprot_coord[prot][0], end=dprot_coord[prot][1]+50, strand=0, color=color, label=prot ))
+		else:
+			sjr.append(GraphicFeature(start=dprot_coord[prot][0], end=dprot_coord[prot][1]+25, strand=0, color=color, label=prot ))
 
 
 	record = GraphicRecord(sequence_length=size, features=features)
