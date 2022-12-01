@@ -196,7 +196,7 @@ x = x %>% spread(sub_nature,count_type)
 x$Syn=as.double(x$Syn)
 pnps2= x %>% replace_na(list(Syn = 0.5, NonSyn = 0)) %>% mutate("pNpS"=NonSyn/Syn )
 
-pnps_merge = pnps %>% inner_join( pnps2, by=c("prot"="prot") ) %>% filter(`pNpS.x` <= 1 )  %>% filter(`pNpS.y` >= (1+`pNpS.x`) ) %>% select(prot,"pNeg/pS-beginning"=`pNpS.y`) %>% mutate("false_beginning"=c("yes"))
+pnps_merge = pnps %>% inner_join( pnps2, by=c("prot"="prot") ) %>% filter(`pNpS.x` <= 1.2 )  %>% filter(`pNpS.y` >= (1+`pNpS.x`) ) %>% select(prot,"pNeg/pS-beginning"=`pNpS.y`) %>% mutate("false_beginning"=c("yes"))
 
 pnps_merge$false_beginning = replace_na(pnps_merge$false_beginning,"no") 
 
