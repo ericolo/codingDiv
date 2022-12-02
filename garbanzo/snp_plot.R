@@ -36,7 +36,7 @@ if (size<=20000) {
     window_size=50
     text_size=13
     } else if (size>50000) {
-      plot_size=34.2
+      plot_size=32.2
       window_size=100
       text_size=15
     }
