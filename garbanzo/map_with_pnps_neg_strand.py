@@ -41,7 +41,6 @@ for i in range(len(genomes)):
 	dprot_color=defaultdict(str)
 
 	with open(orf_file,"r") as f1:
-		next(f1)
 		for li in f1:
 			li=li.rstrip()
 			lp=li.split()
@@ -109,7 +108,6 @@ for i in range(len(genomes)):
 
 		if dprot_pnps[prot]=="NA":
 			color="gray"
-			print(print)
 
 		elif dprot_pnps[prot]<=0.2:
 			color="#2c4099"

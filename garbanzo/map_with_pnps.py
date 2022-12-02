@@ -33,7 +33,6 @@ for i in range(len(genomes)):
 	dprot_color=defaultdict(str)
 
 	with open(orf_file,"r") as f1:
-		next(f1)
 		for li in f1:
 			li=li.rstrip()
 			lp=li.split()
