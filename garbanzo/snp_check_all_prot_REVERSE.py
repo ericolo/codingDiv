@@ -54,10 +54,10 @@ with open(snp,"r") as f2:
 			if len(lp[4])==1:		
 
 				#forward
-				dgenome_snp[(int(lp[1]),lp[4])]=[lp[3],lp[4],total_depth,depths[1],lp[5],sum(depths[1::]),int(lp[1]),"forward"]
+				dgenome_snp[(int(lp[1]),lp[4],"forward")]=[lp[3],lp[4],total_depth,depths[1],lp[5],sum(depths[1::]),int(lp[1]),"forward"]
 
 				#reverse
-				dgenome_snp[( dgenome_size[current_genome]-(int(lp[1])-1) , str(Seq(lp[4]).complement()) )]=[str(Seq(lp[3]).complement()),str(Seq(lp[4]).complement()),total_depth,depths[1],lp[5],sum(depths[1::]),int(lp[1]),"reverse"]
+				dgenome_snp[( dgenome_size[current_genome]-(int(lp[1])-1) , str(Seq(lp[4]).complement()) , "reverse" )]=[str(Seq(lp[3]).complement()),str(Seq(lp[4]).complement()),total_depth,depths[1],lp[5],sum(depths[1::]),int(lp[1]),"reverse"]
 
 			#If several SNPs at the same position
 			else:
@@ -67,9 +67,9 @@ with open(snp,"r") as f2:
 
 					count+=1
 
-					dgenome_snp[(int(lp[1]),alt_nuc)]=[lp[3],alt_nuc,total_depth,depths[count],lp[5],sum(depths[1::]),int(lp[1]),"forward"]
+					dgenome_snp[(int(lp[1]),alt_nuc,"forward")]=[lp[3],alt_nuc,total_depth,depths[count],lp[5],sum(depths[1::]),int(lp[1]),"forward"]
 
-					dgenome_snp[( dgenome_size[current_genome]-(int(lp[1])-1) , str(Seq(alt_nuc).complement()) )]=[str(Seq(lp[3]).complement()),str(Seq(alt_nuc).complement()),total_depth,depths[count],lp[5],sum(depths[1::]),int(lp[1]),"reverse"]
+					dgenome_snp[( dgenome_size[current_genome]-(int(lp[1])-1) , str(Seq(alt_nuc).complement()) , "reverse" )]=[str(Seq(lp[3]).complement()),str(Seq(alt_nuc).complement()),total_depth,depths[count],lp[5],sum(depths[1::]),int(lp[1]),"reverse"]
 
 
 
@@ -207,7 +207,7 @@ for snp in dgenome_snp:
 		if a:
 			current_strand=a.group(0)
 
-		if dgenome_snp[snp][-1]=="forward" and current_strand=="+":
+		if snp[-1]=="forward" and current_strand=="+":
 			current_genome_seq=genome_seq
 
 
@@ -254,7 +254,7 @@ for snp in dgenome_snp:
 				print(prot,dprot_clu[prot],dgenome_snp[snp][-2],snp[0],str(dpos_frame[dprot_coord[prot][0]]),codon_position,ref_codon,ref_aa,dprop[ref_aa],"####",alt_codon,alt_aa,dprop[alt_aa],"NA",dgenome_snp[snp][2],dgenome_snp[snp][3],dgenome_snp[snp][5],dgenome_snp[snp][4],sep="\t")
 
 
-		elif dgenome_snp[snp][-1]=="reverse" and current_strand=="-":
+		elif snp[-1]=="reverse" and current_strand=="-":
 			current_genome_seq=rev_genome_seq
 
 			if (dpos_frame[dprot_coord[prot][0]]==1 and nuc_index==1) or (dpos_frame[dprot_coord[prot][0]]==2 and nuc_index==2) or (dpos_frame[dprot_coord[prot][0]]==3 and nuc_index==3):
