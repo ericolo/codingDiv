@@ -110,10 +110,10 @@ for i in range(len(genomes)):
 					if (end2-start1) / size1 >= 0.75:
 
 						if size1 > size2:
-							rouges.add(orf2)
+							rouges.add(orf2.rstrip("+-"))
 
 						else:
-							rouges.add(orf1)
+							rouges.add(orf1.rstrip("+-"))
 
 
 				if start1 <= start2 <= end1:
@@ -121,7 +121,7 @@ for i in range(len(genomes)):
 					if (end1-start2) / size2 >= 0.75 :
 
 						if size1 > size2:
-							rouges.add(orf2)
+							rouges.add(orf2.rstrip("+-"))
 
 						else:
-							rouges.add(orf1)
+							rouges.add(orf1.rstrip("+-"))
