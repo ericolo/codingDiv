@@ -7,6 +7,7 @@ from Bio import SeqIO
 import matplotlib.pyplot as plt
 import sys
 import numpy as np
+from mirror_effect import rouges
 
 
 genomes=[sys.argv[1]]
@@ -96,6 +97,12 @@ for i in range(len(genomes)):
 
 	for prot in dprot_coord:
 
+		#red contour if mirror effect
+		if prot in rouges:
+			contour="red"
+		else:
+			contour="black"
+
 		if dprot_pnps[prot]=="NA":
 			color="gray"
 
@@ -130,7 +137,7 @@ for i in range(len(genomes)):
 			color="#a02d30"
 
 		
-		sjr.append(GraphicFeature(start=dprot_coord[prot][0], end=dprot_coord[prot][1], strand=1, color=color, label=prot ))
+		sjr.append(GraphicFeature(start=dprot_coord[prot][0], end=dprot_coord[prot][1], strand=1, color=color, label=prot, linecolor=contour ))
 
 		if dprot_fb[prot]=="NA":
 			color="gray"
@@ -166,9 +173,9 @@ for i in range(len(genomes)):
 			color="#a02d30"
 
 		if prot in dprot_fb and dprot_fb[prot]!=0 and dprot_coord[prot][1]-dprot_coord[prot][0] >= 100:
-			sjr.append(GraphicFeature(start=dprot_coord[prot][0], end=dprot_coord[prot][0]+50, strand=0, color=color, label=prot ))
+			sjr.append(GraphicFeature(start=dprot_coord[prot][0], end=dprot_coord[prot][0]+50, strand=0, color=color, label=prot, linecolor=contour  ))
 		elif dprot_fb[prot]!=0 and dprot_coord[prot][1]-dprot_coord[prot][0] < 100:
-			sjr.append(GraphicFeature(start=dprot_coord[prot][0], end=dprot_coord[prot][0]+25, strand=0, color=color, label=prot ))
+			sjr.append(GraphicFeature(start=dprot_coord[prot][0], end=dprot_coord[prot][0]+25, strand=0, color=color, label=prot, linecolor=contour  ))
 
 
 	record = GraphicRecord(sequence_length=size, features=features)
