@@ -19,7 +19,7 @@ This will take around 20 minutes the first time but will be cached if you need t
 
 You have now built your docker image named `codingdiv`.
 
-In the cloned repository you have an example dataset with a reference genome in the `tylcv.fna` file (GenBank accession #) and 1,106 genomes exhibiting at least 90% nucleotide identity with the reference in the `blast_hits_90.fna`. 
+In the cloned repository you have an example dataset with a reference genome in the `tylcv.fna` file (Tomato Yellow Leaf Curl Virus, GenBank accession #NC004005) and 1,106 genomes exhibiting at least 90% nucleotide identity with the reference in the `blast_hits_90.fna`. 
 
 To work with this example data, you can start by creating a custom directory on your OS, here we created a `test` directory in our home repertoire:
 
