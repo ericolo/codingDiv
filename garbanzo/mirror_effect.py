@@ -41,23 +41,25 @@ for i in range(len(genomes)):
 	dprot_frame=defaultdict(str)
 
 	for prot in dprot_coord:
-		if dprot_coord[prot][0] in list(range(1,size,3)):
-			if re.search("\+$",prot):
-				dprot_frame[prot]=1
-			else:
+		if re.search("\+$",prot):
+			if dprot_coord[prot][0] in list(range(1,size,3)):	
+					dprot_frame[prot]=1
+
+			elif dprot_coord[prot][0] in list(range(2,size,3)):
+					dprot_frame[prot]=2
+
+			elif dprot_coord[prot][0] in list(range(3,size,3)):
+					dprot_frame[prot]=3	
+
+		else:
+			if size-(dprot_coord[prot][1]-1) in list(range(1,size,3)):
 				dprot_frame[prot]=-1
 
-		elif dprot_coord[prot][0] in list(range(2,size,3)):
-			if re.search("\+$",prot):
-				dprot_frame[prot]=2
-			else:
+			elif size-(dprot_coord[prot][1]-1) in list(range(2,size,3)):
 				dprot_frame[prot]=-2
 
-		elif dprot_coord[prot][0] in list(range(3,size,3)):
-			if re.search("\+$",prot):
-				dprot_frame[prot]=3	
-			else:
-				dprot_frame[prot]=-3
+			elif size-(dprot_coord[prot][1]-1) in list(range(3,size,3)):
+				dprot_frame[prot]=-3	
 
 	#############################
 
