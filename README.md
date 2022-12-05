@@ -1,7 +1,7 @@
-# potential-garbanzo
-garbanzo means pois-chiche, it was suggested by github
+# codingDiv
 
-Exploring metagenome microdiversity to better find protein coding genes
+The goal is to explore **metagenome microdiversity** to better find protein coding genes. To this end (meta)genomes are mapped to any genome of interest to assess the selective constraints on each Open Reading Frame and *in fine* calculate the **pNeg/pS ratio**, dividing the number of negative scorind substitutions to the number of synonymous ones.<br>
+**Overprinted and/or overlapping genes** will also be scanned here thanks to an initial raw ORF prediction on each reading frame, making this framework suitable for viral genomes known to overprint their genes to maximize their coding potential.
 
 ## Usage with docker container
 You need to have installed the docker app:
@@ -37,7 +37,7 @@ You a re now ready to go !
 
 **Note that your working directory can be an existing one, or even the one you just cloned, it just needs to contain the data files.**
 
-To launch codingDiv on the example run the following command:
+To launch **codingDiv** on the example run the following command:
 
 ```diff
 docker run -v /home/ericolo/test:/data codingdiv codingDiv.sh tylcv.fna blast_hits_90.fna 90 1 2 1 3 N
@@ -47,6 +47,14 @@ The `-v` flag tells the docker that you are working in your custom directory, wh
 
 Then you are calling the `codingdiv` image, that you just built a few minutes ago with the `docker build` command, and finally comes the actual **codingDiv** script with all the positional arguments.
 
+That's it ! Now you can replace the input files with your own reference genome alongside your own similar genomes/contigs or metagenomic reads.<br>
+Note that you can input several metagenomes at once with a glob, but remember to escape the glob character with a back slash. For example:
+
+```diff
+docker run -v /home/ericolo/test:/data codingdiv codingDiv.sh tylcv.fna \*_reads.fastq.gz 90 1 2 1 3 N
+```
+
+We now invite you to check out the **Output & errors** section as well as **Example SVG** for more information.
 
 ## Positional arguments
 
@@ -92,6 +100,7 @@ If you want to jump to the results just open the `final_results` directory, but 
 
 `prot_prediction` keeps track of protein and ORF prediction keeping all the fasta files. 
 
+If any error happens, execution will be halted and the error message will be written in the `stdout.txt` file, please create an issue if you notice a problem !
 
 ## Example SVG
 
