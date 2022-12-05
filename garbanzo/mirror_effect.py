@@ -104,11 +104,12 @@ for i in range(len(genomes)):
 
 				start2=dprot_coord[orf2][0]
 				end2=dprot_coord[orf2][1]
-				size2=end2-start1
+				size2=end2-start2
 
 				if  start2 <= start1 <= end2:
 					if (end2-start1) / size1 >= 0.75:
 
+						
 						if size1 > size2:
 							rouges.add(orf2.rstrip("+-"))
 
