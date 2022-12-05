@@ -236,7 +236,7 @@ for i in range(len(genomes)):
 
 	ax2.plot(np.arange(0,size), dgenome_gc[genome], alpha=1,color="green")
 
-	ax2.set_xlabel("#mapped reads per position (max="+str(max(dgenome_gc[genome]))+")")
+	ax2.set_xlabel("#mapped reads per position (max="+str(max(dgenome_gc[genome]))+", low="+str(min(dgenome_gc[genome]))+")")
 
 	#ax2.yaxis.set_label_position("right")
 	#ax2.yaxis.tick_right()
