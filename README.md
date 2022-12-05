@@ -54,9 +54,14 @@ Then you are calling the `codingdiv` image, that you just built a few minutes ag
 codingDiv.sh tylcv.fna blast_hits_90.fna 90 1 2 1 3 N
 ```
 
-codingDiv.sh v1.0 
+This is the command launched inside the container on our example dataset, the fiver numbers and the final letter are positional arguments for which you will get the detailed explanation if you run the script with no options:
 
-Positional arguments: 
+```diff
+docker run -v /home/ericolo/test:/data codingdiv codingDiv.sh 
+```
+
+There are 8 arguments read by codingDiv:
+
 1- Reference genome / Studied genome (FASTA)
 
 2- Reads or contigs to map (FASTA or FASTQ)
@@ -74,23 +79,32 @@ Positional arguments:
 8- Force SVG for a very large genome, over 100 kilobases [Y|N]
 
 This last option is not recomended as it will generate a very large SVG file.
-A better option would be splitting your genomes in several regions.
+A better option would be splitting your genomes in several regions of 100Kb.
+
 
 # Output & errors
 
-A directory `final_results` will contain both an SVG plot and a TSV file with all results.
-The other created directories contain intermediate files such as mapping results, protein prediction files... 
+If you want to jump to the results just open the `final_results` directory, but if you are interested in the intermediate files, four different directories will be created:
 
-If your final files are empty, you can check the `stdout.err` file which is a raw output file.
+`final_results` will contain an SVG plot summarizing protein prediction and mapping results on genomic maps, and two TSV files which will contain the plotted information as a tab-separated table, one summarizing at the ORF level and the last one detailing the SNPs at each position of these ORFs.
 
-Expected plot:
+`output_files` will have all the intermediate files used to generate the SVG plot and the final tables. 
+
+`mapping_results` stores all the mapping files produced by the **BWA** aligner.
+
+`prot_prediction` keeps track of protein and ORF prediction keeping all the fasta files. 
+
+# Example SVG
+
+This is the SVG plot you should expect, here is the example run on TYLCV:
 ![alt text](https://drive.google.com/uc?export=view&id=1tjHziIe0J7N43GqA1VKhoe1I2qfTlvsa)
 
 # Citation
 
-Cite us:
+For a detailed description of the pipeline, and to cite us:
 
-Olo Ndela & Enault 2022
+CodingDiv : visualize SNP-level microdiversity to discriminate between coding and noncoding regions.
+Olo Ndela, Sasha, Yoann, Johannes Enault 2023
 
 Laboratoire Microorganismes Genome & Environnement (LMGE)
 Clermont-Auvergne University (UCA)
