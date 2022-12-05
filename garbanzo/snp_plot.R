@@ -30,15 +30,15 @@ min_percentage=as.double(args[5])
 if (size<=20000) {
   plot_size=10.1
   window_size=15
-  text_size=13
+  text_size=12
   } else if (size<=50000) {
-    plot_size=17.8
+    plot_size=17.1
     window_size=50
-    text_size=13
+    text_size=12
     } else if (size>50000) {
       plot_size=33.6
       window_size=100
-      text_size=15
+      text_size=14
     }
 
 ############################################################################
