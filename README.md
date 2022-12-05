@@ -50,11 +50,9 @@ Then you are calling the `codingdiv` image, that you just built a few minutes ag
 
 ## Positional arguments
 
-```bash
-codingDiv.sh tylcv.fna blast_hits_90.fna 90 1 2 1 3 N
-```
+**codingDiv.sh tylcv.fna blast_hits_90.fna 90 1 2 1 3 N**
 
-This is the command launched inside the container on our example dataset, the fiver numbers and the final letter are positional arguments for which you will get the detailed explanation if you run the script with no options:
+This is the command launched inside the container on our example dataset, the five numbers and the final letter are positional arguments for which you will get the detailed explanation if you run the script with no options:
 
 ```diff
 docker run -v /home/ericolo/test:/data codingdiv codingDiv.sh 
