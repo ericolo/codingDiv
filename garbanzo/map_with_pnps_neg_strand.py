@@ -96,6 +96,23 @@ for i in range(len(genomes)):
 		if prot not in dprot_pnps:
 			dprot_pnps[prot]="NA"
 
+    #Adding mirror column
+	with open("summary_table.tsv","r") as f2:
+		data=f2.readlines()
+
+	for i in range(len(data)):
+		if data[i].split()[0]=="prot":
+			data[i]=data[i].rstrip()+"\tmirror_effect\n"
+
+		elif data[i].split()[0].rstrip("+-") in rouges:
+			data[i]=data[i].rstrip()+"\tyes\n"
+
+		else:
+			data[i]=data[i].rstrip()+"\tno\n"
+
+	with open("summary_table.tsv","w") as f2:
+		f2.writelines(data)
+
 
 	features=[]
 
