@@ -42,14 +42,22 @@ for i in range(len(genomes)):
 
 	for prot in dprot_coord:
 		if dprot_coord[prot][0] in list(range(1,size,3)):
-			dprot_frame[prot]="0"
+			if re.search("\+$",prot):
+				dprot_frame[prot]=1
+			else:
+				dprot_frame[prot]=-1
 
 		elif dprot_coord[prot][0] in list(range(2,size,3)):
-			dprot_frame[prot]="0.7"
+			if re.search("\+$",prot):
+				dprot_frame[prot]=2
+			else:
+				dprot_frame[prot]=-2
 
 		elif dprot_coord[prot][0] in list(range(3,size,3)):
-			dprot_frame[prot]="1.4"	
-
+			if re.search("\+$",prot):
+				dprot_frame[prot]=3	
+			else:
+				dprot_frame[prot]=-3
 
 	#############################
 
@@ -78,12 +86,22 @@ for i in range(len(genomes)):
 			if lp[-2]=="yes":
 				dprot_fb[lp[0].rstrip("+-")]=float(lp[-1])
 
-			if float(lp[-3]) < 1:
+			if float(lp[-3]) <= 1.2:
 				les_bleus.append(lp[0])
 
 	for prot in dprot_coord:
 		if prot not in dprot_pnps:
 			dprot_pnps[prot]="NA"
+
+	#Finding the mirror strand:
+	if size%3 == 0:
+		mirror=[(2,-1),(1,-2),(3,-3)]
+
+	elif size%3 == 1:
+		mirror=[(3,-1),(2,-2),(1,-3)]
+
+	elif size%3 == 2:
+		mirror=[(3,-2),(2,-3),(1,-1)]
 
 	rouges=set()
 
@@ -98,31 +116,31 @@ for i in range(len(genomes)):
 				strand2=b.group(0)
 		
 			if strand1!=strand2:
-				start1=dprot_coord[orf1][0]
-				end1=dprot_coord[orf1][1]
-				size1=end1-start1
+				if (dprot_frame[orf1],dprot_frame[orf2]) in mirror or (dprot_frame[orf2],dprot_frame[orf1]) in mirror:
+					start1=dprot_coord[orf1][0]
+					end1=dprot_coord[orf1][1]
+					size1=end1-start1
 
-				start2=dprot_coord[orf2][0]
-				end2=dprot_coord[orf2][1]
-				size2=end2-start2
+					start2=dprot_coord[orf2][0]
+					end2=dprot_coord[orf2][1]
+					size2=end2-start2
 
-				if  start2 <= start1 <= end2:
-					if (end2-start1) / size1 >= 0.75:
+					if  start2 <= start1 <= end2:
+						if (end2-start1) / size1 >= 0.75:
+							
+							if size1 > size2:
+								rouges.add(orf2.rstrip("+-"))
 
-						
-						if size1 > size2:
-							rouges.add(orf2.rstrip("+-"))
-
-						else:
-							rouges.add(orf1.rstrip("+-"))
+							else:
+								rouges.add(orf1.rstrip("+-"))
 
 
-				if start1 <= start2 <= end1:
+					if start1 <= start2 <= end1:
 
-					if (end1-start2) / size2 >= 0.75 :
+						if (end1-start2) / size2 >= 0.75 :
 
-						if size1 > size2:
-							rouges.add(orf2.rstrip("+-"))
+							if size1 > size2:
+								rouges.add(orf2.rstrip("+-"))
 
-						else:
-							rouges.add(orf1.rstrip("+-"))
+							else:
+								rouges.add(orf1.rstrip("+-"))
