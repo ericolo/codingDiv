@@ -3,7 +3,7 @@ garbanzo means pois-chiche, it was suggested by github
 
 Exploring metagenome microdiversity to better find protein coding genes
 
-# Usage with docker container
+## Usage with docker container
 You need to have installed the docker app:
 
 https://docs.docker.com/get-docker/ 
@@ -48,7 +48,7 @@ The `-v` flag tells the docker that you are working in your custom directory, wh
 Then you are calling the `codingdiv` image, that you just built a few minutes ago with the `docker build` command, and finally comes the actual **codingDiv** script with all the positional arguments.
 
 
-# Positional arguments
+## Positional arguments
 
 ```bash
 codingDiv.sh tylcv.fna blast_hits_90.fna 90 1 2 1 3 N
@@ -82,7 +82,7 @@ This last option is not recomended as it will generate a very large SVG file.
 A better option would be splitting your genomes in several regions of 100Kb.
 
 
-# Output & errors
+## Output & errors
 
 If you want to jump to the results just open the `final_results` directory, but if you are interested in the intermediate files, four different directories will be created:
 
@@ -94,12 +94,12 @@ If you want to jump to the results just open the `final_results` directory, but 
 
 `prot_prediction` keeps track of protein and ORF prediction keeping all the fasta files. 
 
-# Example SVG
+## Example SVG
 
 This is the SVG plot you should expect, here is the example run on TYLCV:
 ![alt text](https://drive.google.com/uc?export=view&id=1tjHziIe0J7N43GqA1VKhoe1I2qfTlvsa)
 
-# Citation
+## Citation
 
 For a detailed description of the pipeline, and to cite us:
 
