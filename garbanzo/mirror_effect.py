@@ -119,6 +119,7 @@ for i in range(len(genomes)):
 		
 			if strand1!=strand2:
 				if (dprot_frame[orf1],dprot_frame[orf2]) in mirror or (dprot_frame[orf2],dprot_frame[orf1]) in mirror:
+
 					start1=dprot_coord[orf1][0]
 					end1=dprot_coord[orf1][1]
 					size1=end1-start1
@@ -127,7 +128,7 @@ for i in range(len(genomes)):
 					end2=dprot_coord[orf2][1]
 					size2=end2-start2
 
-					if  start2 <= start1 <= end2:
+					if  start2 <= start1 <= end2 or start2 <= end1 <= end2:
 						if (end2-start1) / size1 >= 0.75:
 							
 							if size1 > size2:
@@ -137,7 +138,7 @@ for i in range(len(genomes)):
 								rouges.add(orf1.rstrip("+-"))
 
 
-					if start1 <= start2 <= end1:
+					if start1 <= start2 <= end1 or start1 <= end2 <= end1:
 
 						if (end1-start2) / size2 >= 0.75 :
 
