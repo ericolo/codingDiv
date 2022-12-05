@@ -94,17 +94,19 @@ If you want to jump to the results just open the `final_results` directory, but 
 
 `prot_prediction` keeps track of protein and ORF prediction keeping all the fasta files. 
 
+
 ## Example SVG
 
 This is the SVG plot you should expect, here is the example run on TYLCV:
 ![alt text](https://drive.google.com/uc?export=view&id=1tjHziIe0J7N43GqA1VKhoe1I2qfTlvsa)
+
 
 ## Citation
 
 For a detailed description of the pipeline, and to cite us:
 
 CodingDiv : visualize SNP-level microdiversity to discriminate between coding and noncoding regions.
-Olo Ndela, Sasha, Yoann, Johannes Enault 2023
+Eric Olo Ndela, Alexandra Kolodyazhnaya, Yoann Fauconnet, Johannes Soeding, François Enault (2023).
 
 Laboratoire Microorganismes Genome & Environnement (LMGE)
 Clermont-Auvergne University (UCA)
