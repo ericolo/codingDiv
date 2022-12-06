@@ -1,5 +1,5 @@
  <p align="center">
-  <img src="https://drive.google.com/uc?export=view&id=1G6rAjnD5MohuFuPh1pJ6K0uuBGstoGy9" width="600" />
+  <img src="logo_github.png" width="600" />
 </p>
 
 The goal is to explore **metagenome microdiversity** to better find protein coding genes. To this end (meta)genomes are mapped to any genome of interest to assess the selective constraints on each Open Reading Frame and *in fine* calculate the **pNeg/pS ratio**, dividing the number of negative scoring amino-acid substitutions (BLOSUM62) by the number of synonymous ones.<br>
