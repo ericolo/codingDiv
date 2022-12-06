@@ -100,7 +100,7 @@ If you want to jump to the results just open the `final_results` directory, but 
 
 `mapping_results` stores all the mapping files produced by the **BWA** aligner.
 
-`prot_prediction` keeps track of protein and ORF prediction keeping all the fasta files. 
+`prot_prediction` keeps track of protein and ORF prediction saving all the fasta files. 
 
 If any error happens, execution will be halted and the error message will be written in the `stdout.txt` file, please create an issue if you notice a problem !
 
