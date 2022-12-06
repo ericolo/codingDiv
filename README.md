@@ -1,5 +1,5 @@
  <p align="center">
-  <img src="logo_github.png" width="600" />
+  <img src="images/logo_github.png" width="600" />
 </p>
 
 The goal is to explore **metagenome microdiversity** to better find protein coding genes. To this end (meta)genomes are mapped to any genome of interest to assess the selective constraints on each Open Reading Frame and *in fine* calculate the **pNeg/pS ratio**, dividing the number of negative scoring amino-acid substitutions (BLOSUM62) by the number of synonymous ones.<br>
@@ -110,7 +110,7 @@ If any error happens, execution will be halted and the error message will be wri
 This is the SVG plot you should expect, here is the example run on TYLCV:
 
 <p align="center">
- <img src="summary_svg_TYLCV_512 (1).png" width=800>
+ <img src="images/summary_svg_TYLCV_512 (1).png" width=800>
 </p>
 
 ## Citation
@@ -124,6 +124,6 @@ Laboratoire Microorganismes Genome & Environnement (LMGE)<br>
 Clermont-Auvergne University (UCA)
 
 <p align="center">
- <img src="logo_UCA_Long_300dpi.png" width=400> 
+ <img src="images/logo_UCA_Long_300dpi.png" width=400> 
 </p>
 
