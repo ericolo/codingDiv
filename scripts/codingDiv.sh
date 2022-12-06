@@ -51,7 +51,7 @@ A better option would be splitting your genomes in several regions.
 Cite us:
 
 CodingDiv : visualize SNP-level microdiversity to discriminate between coding and noncoding regions.
-Eric Olo Ndela, Alexandra Kolodyazhnaya, Yoann Fauconnet, Johannes Soeding, François Enault (2023).
+Eric Olo Ndela & François Enault (2023, unpublished).
 Laboratoire Microorganismes Genome & Environnement (LMGE)
 Clermont-Auvergne University (UCA)
         """
