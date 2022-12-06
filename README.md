@@ -124,6 +124,6 @@ Laboratoire Microorganismes Genome & Environnement (LMGE)<br>
 Clermont-Auvergne University (UCA)
 
 <p align="center">
- <img src="https://drive.google.com/uc?export=view&id=1KgfsVEYJl00tL3zIrJOyzxdb-M7jbj3-" width=400> 
+ <img src="logo_UCA_Long_300dpi.png" width=400> 
 </p>
 
