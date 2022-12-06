@@ -117,7 +117,7 @@ This is the SVG plot you should expect, here is the example run on TYLCV:
 For a detailed description of the pipeline, and to cite us:
 
 **CodingDiv : visualize SNP-level microdiversity to discriminate between coding and noncoding regions.**<br>
-Eric Olo Ndela, Alexandra Kolodyazhnaya, Yoann Fauconnet, Johannes Soeding, François Enault (2023).
+Eric Olo Ndela & François Enault (2023, unpublished).
 
 Laboratoire Microorganismes Genome & Environnement (LMGE)<br>
 Clermont-Auvergne University (UCA)
