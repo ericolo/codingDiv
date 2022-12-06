@@ -2,7 +2,7 @@
   <img src="https://drive.google.com/uc?export=view&id=1G6rAjnD5MohuFuPh1pJ6K0uuBGstoGy9" width="600" />
 </p>
 
-The goal is to explore **metagenome microdiversity** to better find protein coding genes. To this end (meta)genomes are mapped to any genome of interest to assess the selective constraints on each Open Reading Frame and *in fine* calculate the **pNeg/pS ratio**, dividing the number of negative scoring amino-acid substitutions (BLOSUM62) to the number of synonymous ones.<br>
+The goal is to explore **metagenome microdiversity** to better find protein coding genes. To this end (meta)genomes are mapped to any genome of interest to assess the selective constraints on each Open Reading Frame and *in fine* calculate the **pNeg/pS ratio**, dividing the number of negative scoring amino-acid substitutions (BLOSUM62) by the number of synonymous ones.<br>
 **Overprinted and/or overlapping genes** will also be scanned here thanks to an initial raw ORF prediction on each reading frame, making this framework suitable for viral genomes known to overprint their genes to maximize their coding potential.
 
 ## Usage with docker container
@@ -11,7 +11,7 @@ You need to have installed the docker app:
 https://docs.docker.com/get-docker/ 
 
 
-Once your docker is running, clone the repository and move into the `potential-garbanzo` directory, then run:
+Once your docker is running, clone the repository and move into the `codingdiv` directory, then run:
 
 ```diff
 docker build --tag codingdiv .
