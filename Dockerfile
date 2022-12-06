@@ -99,13 +99,13 @@ RUN apt install -y git
 
 #To not cach the git clone command as repository can change
 #This will change if the github repo is modified
-ADD https://api.github.com/repos/ericolo/potential-garbanzo/git/refs/heads/main version.json
+ADD https://api.github.com/repos/ericolo/codingDiv/git/refs/heads/main version.json
 
-RUN git clone https://github.com/ericolo/potential-garbanzo
+RUN git clone https://github.com/ericolo/codingDiv
 
-RUN chmod +x /potential-garbanzo/garbanzo/*
+RUN chmod +x /codingDiv/scripts/*
 
-ENV PATH=$PATH:/potential-garbanzo/garbanzo
+ENV PATH=$PATH:/codingDiv/scripts
 
 RUN echo $PATH
 

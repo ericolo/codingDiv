@@ -26,7 +26,7 @@ rm stdout.txt
 if [ -z "${reference_genome}" ] || [ -z "${reads_contigs}" ] || [ -z "${min_orf_size}" ] || [ -z "${translation_table}" ] || [ -z "${min_reads}" ] || [ -z "${min_percentage}" ] || [ -z "${num_threads}" ]
 then 
 	echo """
-pipeline.sh v1.0 
+codingDiv.sh v1.0 
 
 Positional arguments: 
 1- Reference genome / Studied genome (FASTA)
@@ -50,7 +50,8 @@ A better option would be splitting your genomes in several regions.
 
 Cite us:
 
-blablabla et al. 2036
+CodingDiv : visualize SNP-level microdiversity to discriminate between coding and noncoding regions.
+Eric Olo Ndela, Alexandra Kolodyazhnaya, Yoann Fauconnet, Johannes Soeding, François Enault (2023).
 Laboratoire Microorganismes Genome & Environnement (LMGE)
 Clermont-Auvergne University (UCA)
         """
