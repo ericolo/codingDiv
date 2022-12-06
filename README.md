@@ -108,8 +108,9 @@ If any error happens, execution will be halted and the error message will be wri
 
 This is the SVG plot you should expect, here is the example run on TYLCV:
 
-![alt text](https://drive.google.com/uc?export=view&id=1FB9Kc2prQO2owUAMo-CTOAFwqswN7Wxd)
-
+<p align="center">
+ <img src="https://drive.google.com/uc?export=view&id=1FB9Kc2prQO2owUAMo-CTOAFwqswN7Wxd" width=800>
+</p>
 
 ## Citation
 
