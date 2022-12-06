@@ -103,7 +103,7 @@ If you want to jump to the results just open the `final_results` directory, but 
 
 If any error happens, execution will be halted and the error message will be written in the `stdout.txt` file, please create an issue if you notice a problem !
 
-**Please note that if your genome is larger than 100Kb and you are using contigs around the same length to map them BWA will fail at the mapping step, generating an error. In that case consider splitting your contigs into read like sequences. You can easily do it with tools such as the *bbduk* script from the BBMAP suite.**
+**Please note that if your genome is larger than 100Kb and you are using contigs around the same length to map them BWA will fail at the mapping step, generating an error. In that case consider splitting your contigs into read like sequences. You can easily do it with tools such as the *bbduk* script from the <href="https://github.com/BioInfoTools/BBMap">BBMap</> suite.**
 
 ## Example SVG
 
