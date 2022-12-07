@@ -101,8 +101,6 @@ b=toto %>% filter(!is.na(ratio))
 
 toto=rbind(a,b)
 
-#toto %>% print(n=2781)
-
 #R v4 does not allow replacement with a different type
 toto$frame=replace_na(toto$frame,as.factor(1))
 
@@ -123,6 +121,7 @@ ggplot(data=toto) +
   ggtitle("Bar chart of substitutions colored by BLOSUM62 score")+
   theme(plot.title = element_text(size = text_size, face = "bold"))+
   theme(legend.text=element_text(size=text_size))+
+  theme(plot.margin=grid::unit(c(0,0,0,0), "mm"))+
   labs(y="", x=str_c("Number of substitutions per ",window_size,"nt window"))+
   ggsave(str_c(genome,"_bar_chart.svg"),width=plot_size,height=6, bg="transparent")
 
