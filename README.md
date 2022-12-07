@@ -6,10 +6,7 @@ The goal is to explore **metagenome microdiversity** to better find protein codi
 **Overprinted and/or overlapping genes** will also be scanned here thanks to an initial raw ORF prediction on each reading frame, making this framework suitable for viral genomes known to overprint their genes to maximize their coding potential.
 
 ## Usage with docker container
-You need to have installed the docker app:
-
-https://docs.docker.com/get-docker/ 
-
+You need to have installed the <a href="https://docs.docker.com/get-docker/">docker app</a> and at least **3 gigabytes** of free space: 
 
 Once your docker is running, clone the repository and move into the `codingdiv` directory, then run:
 
