@@ -400,7 +400,7 @@ else
 				echo "#################################################"
 			fi
 
-		elif [$(awk '{a+=length($5)} END {print a}') -eq $genome_size]
+		elif [ $(awk '{a+=length($5)} END {print a}') -eq $genome_size ]
 		then
 			echo "#################################################"
 			echo "No SNPs were found, halting execution"
