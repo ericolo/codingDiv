@@ -109,6 +109,9 @@ ENV PATH=$PATH:/codingDiv/scripts
 
 RUN echo $PATH
 
+#Just to have vim for troubleshooting
+RUN apt-get install -y vim
+
 WORKDIR /data
 
 #To not type codingDiv.sh 
