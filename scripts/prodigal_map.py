@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 
+import os
+os.environ['OPENBLAS_NUM_THREADS'] = '1'
+
 from collections import defaultdict
 import re
 from dna_features_viewer import GraphicFeature, GraphicRecord,CircularGraphicRecord

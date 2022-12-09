@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 
 import os 
+os.environ['OPENBLAS_NUM_THREADS'] = '1'
+
 import re
 import sys
 from collections import defaultdict
