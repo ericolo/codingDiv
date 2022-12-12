@@ -117,6 +117,15 @@ WORKDIR /data
 #To not type codingDiv.sh 
 CMD ["bash", "codingDiv.sh"]
 
+#To
+ARG UNAME=testuser
+ARG UID=1000
+ARG GID=1000
+RUN groupadd -g $GID -o $UNAME
+RUN useradd -m -u $UID -g $GID -o -s /bin/bash $UNAME
+USER $UNAME
+CMD /bin/bash
+
 #It works like this, files will be written in the given dir
 #docker run -v /Users/ONE/Downloads/codingdiv:/data codingdiv codingDiv.sh tylcv.fna blast_hits_90.fna 90 1 2 1 3 N
 
