@@ -74,13 +74,15 @@ First create your local image of **codingDiv**:
 singularity build codingdiv.sif docker://erolondela/codingdiv
 ```
 
-Then, after cloning the repository, move into your working directory containing the input files and run:
+Then, after cloning the repository, move into your working directory containing the input files and run the example:
 
 ```diff
-singularity run --bind $HOME/test:/data  codingdiv.sif  tylcv.fna blast_hits_90.fna 90 1 2 1 3 N
+singularity run --bind $HOME/codingDiv:/data  codingdiv.sif  tylcv.fna blast_hits_90.fna 90 1 2 1 3 N
 ```
 
-Here the repository was cloned in `$HOME`.
+Here the repository was cloned in `$HOME`. 
+
+Check out the **Output & errors** section as well as **Example SVG** for more information.
 
 ## Positional arguments
 
