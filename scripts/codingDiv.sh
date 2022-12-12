@@ -18,6 +18,8 @@ num_threads=$7
 
 force_svg="$8"
 
+#Fetching reference name and size
+genome_name=$(grep '>' $reference_genome |awk '{print $1}' |sed -re 's/>//')
 genome_size=$(grep -v '>' $reference_genome | sed -z 's/\n//g' |wc -c)
 
 #deletng stdout.txt file from previous run 
@@ -143,13 +145,6 @@ else
 
 			if [ $exit_code1 -eq 0 ] && [ $exit_code2 -eq 0 ] 
 			then
-			
-				#finding name (first field as in biopython)
-				genome_name=$(grep '>' $reference_genome |awk '{print $1}' |sed -re 's/>//')
-
-				#finding size
-				genome_size=$(grep -v '>' $reference_genome | sed -z 's/\n//g' |wc -c)
-
 
 				echo "Producing plots & moving files to their directories..."
 
