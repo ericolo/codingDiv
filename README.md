@@ -77,7 +77,7 @@ singularity build codingdiv.sif docker://erolondela/codingdiv
 Then, after cloning the repository, move into your working directory containing the input files and run:
 
 ```diff
-singularity run --bind $HOME/codingdiv:/data  codingdiv.sif  tylcv.fna blast_hits_90.fna 90 1 2 1 3 N
+singularity run --bind $HOME/test:/data  codingdiv.sif  tylcv.fna blast_hits_90.fna 90 1 2 1 3 N
 ```
 
 Here the repository was cloned in `$HOME`.
