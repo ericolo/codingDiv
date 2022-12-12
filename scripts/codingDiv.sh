@@ -18,6 +18,8 @@ num_threads=$7
 
 force_svg="$8"
 
+genome_size=$(grep -v '>' $reference_genome | sed -z 's/\n//g' |wc -c)
+
 #deletng stdout.txt file from previous run 
 {
 rm stdout.txt
@@ -121,7 +123,7 @@ else
 		exit_code=$?
 		} &>>stdout.txt
 
-		if [ $exit_code -eq 0 ]
+		if [ $exit_code -eq 0 ] && [[ $(awk '{a+=length($5)} END {print a}' $snp_file) -ne $genome_size ]]
 		then
 
 			########################SNP assessment, on full length reading frames
@@ -139,7 +141,7 @@ else
 			
 			} &>>stdout.txt
 
-			if [ $exit_code1 -eq 0 ] && [ $exit_code2 -eq 0 ] #[ $exit_code1 -eq 0 ] && 
+			if [ $exit_code1 -eq 0 ] && [ $exit_code2 -eq 0 ] 
 			then
 			
 				#finding name (first field as in biopython)
@@ -400,6 +402,11 @@ else
 				echo "#################################################"
 			fi
 
+		elif [ $exit_code -eq 0 ] && [[ $(awk '{a+=length($5)} END {print a}' $snp_file) == $genome_size ]]
+		then
+			echo "#####################################"
+			echo "No SNPs were found, execution halted"
+			echo "#####################################"
 		else
 			echo "#################################################"
 			echo "There was an error, check stdout.txt for details"
