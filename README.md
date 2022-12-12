@@ -65,7 +65,7 @@ docker run -v $HOME/test:/data codingdiv codingDiv.sh tylcv.fna \*_reads.fastq.g
 
 We now invite you to check out the **Output & errors** section as well as **Example SVG** for more information.
 
-## Usage with sigularity container
+## Usage with Singularity container
 If you are using <a href="https://docs.sylabs.io/guides/3.5/user-guide/quick_start.html">Singularity container</a> you can use **codingDiv** as follows:
 
 First create your local image of **codingDiv**:
