@@ -11,12 +11,10 @@ You need to have installed the <a href="https://docs.docker.com/get-docker/">doc
 Once your docker is running, clone the repository and move into the `codingdiv` directory, then run:
 
 ```diff
-docker build --build-arg UID=$(id -u) --build-arg GID=$(id -g) --tag codingdiv .
+docker build --tag codingdiv .
 ```
 
 This will take around 20 minutes the first time but will be cached if you need to rebuild it in case of an update.
-
-*The `--build-arg` flag will keep your user ID inside the container so that your files are not created by the `root` user, preventing access if you are not in the superusers list.*
 
 Instead of building the image from the `Dockerfile` you can also download the latest built version of the image like this:
 
