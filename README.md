@@ -11,10 +11,20 @@ You need to have installed the <a href="https://docs.docker.com/get-docker/">doc
 Once your docker is running, clone the repository and move into the `codingdiv` directory, then run:
 
 ```diff
-docker build --tag codingdiv .
+docker build --build-arg UID=$(id -u) --build-arg GID=$(id -g) --tag codingdiv .
 ```
 
 This will take around 20 minutes the first time but will be cached if you need to rebuild it in case of an update.
+
+*The `--build-arg` flag will keep your user ID inside the container so that your files are not created by the `root` user, preventing access if you are not in the superusers list.*
+
+Instead of building the image from the `Dockerfile` you can also download the latest built version of the image like this:
+
+```diff
+docker pull erolondela/codingdiv
+```
+
+This command will download approximately 2.5 gigabytes, make sure to have enough free disk space.
 
 You have now built your docker image named `codingdiv`.
 
@@ -23,14 +33,14 @@ In the cloned repository you have an example dataset with a reference genome in 
 To work with this example data, you can start by creating a custom directory on your OS, here we created a `test` directory in our home repertoire:
 
 ```bash
-mkdir /home/ericolo/test/
+mkdir $HOME/test/
 ```
 
 Then copy the two example files into this new directory:
 
 ```bash
-cp tylcv.fna /home/ericolo/test/
-cp blast_hits_90.fna /home/ericolo/test/
+cp tylcv.fna $HOME/test/
+cp blast_hits_90.fna $HOME/test/
 ```
 You a re now ready to go ! 
 
@@ -39,10 +49,10 @@ You a re now ready to go !
 To launch **codingDiv** on the example run the following command:
 
 ```diff
-docker run -v /home/ericolo/test:/data codingdiv codingDiv.sh tylcv.fna blast_hits_90.fna 90 1 2 1 3 N
+docker run -v $HOME/test:/data codingdiv codingDiv.sh tylcv.fna blast_hits_90.fna 90 1 2 1 3 N
 ```
 
-The `-v` flag tells the docker that you are working in your custom directory, which is mirrored inside the container in a directory named `/data`. This allows docker to read and write files in your custom directory on your OS. Thus you should replace `/home/ericolo/test` with the path to your own directory.
+The `-v` flag tells the docker that you are working in your custom directory, which is mirrored inside the container in a directory named `/data`. This allows docker to read and write files in your custom directory on your OS. Thus you should replace `$HOME/test` with the path to your own directory.
 
 Then you are calling the `codingdiv` image, that you just built a few minutes ago with the `docker build` command, and finally comes the actual **codingDiv** script with all the positional arguments.
 
@@ -50,10 +60,27 @@ That's it ! Now you can replace the input files with your own reference genome a
 Note that you can input several metagenomes at once with a glob, but remember to escape the glob character with a back slash. For example:
 
 ```diff
-docker run -v /home/ericolo/test:/data codingdiv codingDiv.sh tylcv.fna \*_reads.fastq.gz 90 1 2 1 3 N
+docker run -v $HOME/test:/data codingdiv codingDiv.sh tylcv.fna \*_reads.fastq.gz 90 1 2 1 3 N
 ```
 
 We now invite you to check out the **Output & errors** section as well as **Example SVG** for more information.
+
+## Usage with sigularity container
+If you are using <a href="https://docs.sylabs.io/guides/3.5/user-guide/quick_start.html">Singularity container</a> you can use **codingDiv** as follows:
+
+First create your local image of **codingDiv**:
+
+```diff
+singularity build codingdiv.sif docker://erolondela/codingdiv
+```
+
+Then, after cloning the repository, move into your working directory containing the input files and run:
+
+```diff
+singularity run --bind $HOME/codingdiv:/data  codingdiv.sif  tylcv.fna blast_hits_90.fna 90 1 2 1 3 N
+```
+
+Here the repository was cloned in `$HOME`.
 
 ## Positional arguments
 
@@ -62,7 +89,7 @@ We now invite you to check out the **Output & errors** section as well as **Exam
 This is the command launched inside the container on our example dataset, the five numbers and the final letter are positional arguments for which you will get the detailed explanation if you run the script with no options:
 
 ```diff
-docker run -v /home/ericolo/test:/data codingdiv codingDiv.sh 
+docker run -v $HOME/test:/data codingdiv codingDiv.sh 
 ```
 
 There are 8 arguments read by codingDiv:
