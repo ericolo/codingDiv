@@ -57,7 +57,7 @@ Clermont-Auvergne University (UCA)
         """
 else
 
-	if [ ! -f "$reference_genome" ] || [ ! $(ls -A "$reads_contigs") ] 
+	if [ ! -f "$reference_genome" ] || [[ ! $(ls -A "$reads_contigs") ]]
 	then 
 		echo "ERROR : One of the FASTA/FASTQ files does not exist"
 	else 
