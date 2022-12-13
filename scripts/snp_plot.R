@@ -119,7 +119,7 @@ ggplot(data=toto) +
    theme(
    strip.background = element_rect(
      color=c("black","yellow"), fill="#FC4E07", size=1.5, linetype="solid"
-     ) +
+     ) ) +
   theme(panel.background = element_rect(fill = "white",colour = "white") )+
   theme(plot.background = element_rect(fill = "white"))+
   ggtitle("Bar chart of substitutions colored by BLOSUM62 score")+
