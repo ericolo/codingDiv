@@ -127,7 +127,16 @@ p=ggplot(data=toto) +
   #Mirror strand colors 
   g <- ggplot_gtable(ggplot_build(p))
   strip_right <- which(grepl('strip-r', g$layout$name))
-  fills <- c("blue","red","green","blue","red","green")
+
+  if (size %% 3 == 0) {
+    fills <- c("#F4AAA2","#88AAE1","#95C845","#88AAE1","#95C845","#F4AAA2")
+  } else if (size %% 3 == 1) {
+    fills <- c("#F4AAA2","#88AAE1","#95C845","#F4AAA2","#88AAE1","#95C845")
+
+  } else if (size %% 3 == 2) {
+    fills <- c("#F4AAA2","#88AAE1","#95C845","#95C845","#F4AAA2","#88AAE1")
+  }
+
   k <- 1
   for (i in strip_right) {
     j <- which(grepl('rect', g$grobs[[i]]$grobs[[1]]$childrenOrder))
@@ -135,7 +144,7 @@ p=ggplot(data=toto) +
     k <- k+1
   }
 
-  svg(str_c(genome,"_bar_chart.svg"))
+  svg(str_c(genome,"_bar_chart.svg"), width=plot_size, height=6, bg="transparent")
   grid.draw(g)
   dev.off()
 
