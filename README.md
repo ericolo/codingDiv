@@ -68,7 +68,7 @@ We now invite you to check out the **Output & errors** section as well as **Exam
 If you use the commands above the results will be produced by the `root` user, which is not a problem if you are in the superusers list of your machine, but if you are running coodingDiv in any remote server or HPC cluster you might not have the root rights. Using the `-u` flag you can get around this by telling docker that the host machine user is the same user inside and outside the container:
 
 ```diff
-docker run -u $(id -u ${USER}):$(id -g ${USER}) -v /home/ericolondela/test:/data erolondela/codingdiv codingDiv.sh HC_Laff_PAcuta2_c1.fna HC_Laff_PAcuta2_qc.fna 90 11 2 1 23 N
+docker run -u $(id -u ${USER}):$(id -g ${USER}) -v $HOME/test:/data erolondela/codingdiv codingDiv.sh tylcv.fna blast_hits_90.fna 90 1 2 1 3 N
 ```
 
 ## Usage with Singularity container
