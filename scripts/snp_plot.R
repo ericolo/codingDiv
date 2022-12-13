@@ -118,7 +118,7 @@ ggplot(data=toto) +
   facet_grid(rows=vars(frame), drop=TRUE)+
    theme(
    strip.background = element_rect(
-     color=c("black","yellow"), fill="#FC4E07", size=1.5, linetype="solid"
+     color=c("black"), fill=c("#FC4E07","yellow"), size=1.5, linetype="solid"
      ) ) +
   theme(panel.background = element_rect(fill = "white",colour = "white") )+
   theme(plot.background = element_rect(fill = "white"))+
