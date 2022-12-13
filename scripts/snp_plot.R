@@ -129,12 +129,12 @@ p=ggplot(data=toto) +
   strip_right <- which(grepl('strip-r', g$layout$name))
 
   if (size %% 3 == 0) {
-    fills <- c("#FEE1E8","#D4F0F0","#CCE2CB","#D4F0F0","#CCE2CB","#FEE1E8")
+    fills <- c("#FEE1E8","#D4F0F0","#FFFFB5","#D4F0F0","#FFFFB5","#FEE1E8")
   } else if (size %% 3 == 1) {
-    fills <- c("#FEE1E8","#D4F0F0","#CCE2CB","#FEE1E8","#D4F0F0","#CCE2CB")
+    fills <- c("#FEE1E8","#D4F0F0","#FFFFB5","#FEE1E8","#D4F0F0","#FFFFB5")
 
   } else if (size %% 3 == 2) {
-    fills <- c("#FEE1E8","#D4F0F0","#CCE2CB","#CCE2CB","#FEE1E8","#D4F0F0")
+    fills <- c("#FEE1E8","#D4F0F0","#FFFFB5","#FFFFB5","#FEE1E8","#D4F0F0")
   }
 
   k <- 1
