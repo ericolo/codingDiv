@@ -2,7 +2,7 @@
 
 library(tidyverse)
 library(ggplot2)
-
+library(grid)
 
 ### old ggplot behaviour
 
@@ -104,7 +104,7 @@ toto=rbind(a,b)
 #R v4 does not allow replacement with a different type
 toto$frame=replace_na(toto$frame,as.factor(1))
 
-ggplot(data=toto) +
+p=ggplot(data=toto) +
   geom_col(mapping = aes(x=factor(pixel), y=count_total, fill=sub_nature)) +
   scale_fill_manual(values=c(`Neg<-2`="red",`Neg>=-2`="orange",Pos="green",Syn="skyblue",AAtoSTOP="black",STOPtoAA="#838383"))+
   theme_bw()+
@@ -116,16 +116,27 @@ ggplot(data=toto) +
         axis.ticks.x=element_blank(),
         axis.title=element_text(size=text_size-2))+
   facet_grid(rows=vars(frame), drop=TRUE)+
-   theme(
-   strip.background = element_rect(
-     color="gray", fill=c("green","#FC4E07","yellow","green","#FC4E07","yellow"), size=1, linetype="solid"
-     ) ) +
   theme(panel.background = element_rect(fill = "white",colour = "white") )+
   theme(plot.background = element_rect(fill = "white"))+
   ggtitle("Bar chart of substitutions colored by BLOSUM62 score")+
   theme(plot.title = element_text(size = text_size, face = "bold"))+
   theme(legend.text=element_text(size=text_size))+
-  labs(y="", x=str_c("Number of substitutions per ",window_size,"nt window"))+
-  ggsave(str_c(genome,"_bar_chart.svg"),width=plot_size,height=6, bg="transparent")
+  labs(y="", x=str_c("Number of substitutions per ",window_size,"nt window"))
+  #ggsave(str_c(genome,"_bar_chart.svg"),width=plot_size,height=6, bg="transparent")
+
+  #Mirror strand colors 
+  g <- ggplot_gtable(ggplot_build(p))
+  strip_right <- which(grepl('strip-r', g$layout$name))
+  fills <- c("blue","red","green","blue","red","green")
+  k <- 1
+  for (i in strip_right) {
+    j <- which(grepl('rect', g$grobs[[i]]$grobs[[1]]$childrenOrder))
+    g$grobs[[i]]$grobs[[1]]$children[[j]]$gp$fill <- fills[k]
+    k <- k+1
+  }
+
+  svg(str_c(genome,"_bar_chart.svg"))
+  grid.draw(g)
+  dev.off()
 
 }
