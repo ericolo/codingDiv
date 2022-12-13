@@ -142,7 +142,7 @@ If any error happens, execution will be halted and the error message will be wri
 This is the SVG plot you should expect, here is the example run on TYLCV:
 
 <p align="center">
- <img src="images/summary_svg_TYLCV_512 (1).png" width=800>
+ <img src="images/summary_svg_TYLCV_512.png" width=800>
 </p>
 
 ## Citation
