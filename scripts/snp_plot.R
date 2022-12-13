@@ -116,6 +116,10 @@ ggplot(data=toto) +
         axis.ticks.x=element_blank(),
         axis.title=element_text(size=text_size-2))+
   facet_grid(rows=vars(frame), drop=TRUE)+
+   theme(
+   strip.background = element_rect(
+     color=c("black","yellow"), fill="#FC4E07", size=1.5, linetype="solid"
+     ) +
   theme(panel.background = element_rect(fill = "white",colour = "white") )+
   theme(plot.background = element_rect(fill = "white"))+
   ggtitle("Bar chart of substitutions colored by BLOSUM62 score")+
