@@ -11,7 +11,7 @@ reads=$2
 
 #To manage globs
 if [[ $reads == *"*"* ]]; then
-  reads="${reads:1}"
+  reads=$(awk 'gsub(/\\/,"",$0)' <(echo "$reads"))
 fi
 
 threads=$3

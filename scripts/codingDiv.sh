@@ -7,7 +7,7 @@ reads_contigs=$2
 
 #To manage globs
 if [[ $reads_contigs == *"*"* ]]; then
-  reads_contigs="${reads_contigs:1}"
+  reads_contigs=$(awk 'gsub(/\\/,"",$0)' <(echo "$reads_contigs"))
 fi
 
 
