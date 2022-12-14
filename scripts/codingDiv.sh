@@ -123,7 +123,7 @@ else
 		} &>>stdout.txt
 
 		#####################Mapping
-		echo "Mapping... "$2" to "$1
+		echo "Mapping... "$reads_contigs" to "$1
 
 		{
 		printf "\n\n### map_var_call.sh $reference_genome $reads_contigs $num_threads\n\n"
