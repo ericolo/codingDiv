@@ -55,10 +55,10 @@ The `-v` flag tells the docker that you are working in your custom directory, wh
 Then you are calling the `codingdiv` image, that you just built a few minutes ago with the `docker build` command, and finally comes the actual **codingDiv** script with all the positional arguments.
 
 That's it ! Now you can replace the input files with your own reference genome alongside your own similar genomes/contigs or metagenomic reads.<br>
-Note that you can input several metagenomes at once with a glob, but remember to escape the glob character with a back slash. For example:
+Note that you can input several metagenomes at once with a glob, but remember to escape the glob character with a back slash and double quotation marks. For example:
 
 ```diff
-docker run -v $HOME/test:/data codingdiv codingDiv.sh tylcv.fna \*_reads.fastq.gz 90 1 2 1 3 N
+docker run -v $HOME/test:/data codingdiv codingDiv.sh tylcv.fna "\*_reads.fastq.gz" 90 1 2 1 3 N
 ```
 
 We now invite you to check out the **Output & errors** section as well as **Example SVG** for more information.
