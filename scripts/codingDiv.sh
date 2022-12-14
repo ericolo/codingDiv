@@ -126,7 +126,7 @@ else
 		echo "Mapping... "$reads_contigs" to "$1
 
 		{
-		printf "\n\n### map_var_call.sh $reference_genome $reads_contigs $num_threads\n\n"
+		printf "\n\n### map_var_call.sh $reference_genome $2 $num_threads\n\n"
 		map_var_call.sh $reference_genome $reads_contigs $num_threads
 		exit_code=$?
 		} &>>stdout.txt
