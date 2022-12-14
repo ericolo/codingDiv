@@ -127,7 +127,7 @@ else
 
 		{
 		printf "\n\n### map_var_call.sh $reference_genome $2 $num_threads\n\n"
-		map_var_call.sh $reference_genome $reads_contigs $num_threads
+		map_var_call.sh $reference_genome $2 $num_threads
 		exit_code=$?
 		} &>>stdout.txt
 
