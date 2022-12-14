@@ -7,9 +7,12 @@ reference=$1
 
 refname=$(awk -F'.' '{print $1}' <(echo $(basename $reference)))
 
-#This could be a glob of all desired datasets or just a fasta file
-#Echap the asterisk for it to work like this \*
 reads=$2
+
+#To manage globs
+if [[ $reads == *"*"* ]]; then
+  $reads="${$reads:1}"
+fi
 
 threads=$3
 

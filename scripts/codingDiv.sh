@@ -5,6 +5,12 @@ reference_genome=$1
 
 reads_contigs=$2
 
+#To manage globs
+if [[ $reads_contigs == *"*"* ]]; then
+  $reads_contigs="${$reads_contigs:1}"
+fi
+
+
 min_orf_size=$3
 
 translation_table=$4
