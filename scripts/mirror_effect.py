@@ -131,7 +131,16 @@ for i in range(len(genomes)):
 					end2=dprot_coord[orf2][1]
 					size2=end2-start2
 
-					if  start2 <= start1 <= end2 or start2 <= end1 <= end2:
+					if start2 <= start1 <= end2 and start2 <= end1 <= end2:
+						if (end1-start1) / size1 >= 0.75:
+							
+							if size1 > size2:
+								rouges.add(orf2.rstrip("+-"))
+
+							else:
+								rouges.add(orf1.rstrip("+-"))						
+
+					elif  start2 <= start1 <= end2:
 						if (end2-start1) / size1 >= 0.75:
 							
 							if size1 > size2:
@@ -140,11 +149,36 @@ for i in range(len(genomes)):
 							else:
 								rouges.add(orf1.rstrip("+-"))
 
+					elif start2 <= end1 <= end2:
+						if (end1-start2) / size1 >= 0.75:
+							
+							if size1 > size2:
+								rouges.add(orf2.rstrip("+-"))
 
-					if start1 <= start2 <= end1 or start1 <= end2 <= end1:
+							else:
+								rouges.add(orf1.rstrip("+-"))
 
-						if (end1-start2) / size2 >= 0.75 :
+					if start1 <= start2 <= end1 and start1 <= end2 <= end1:
+						if (end2-start2) / size1 >= 0.75:
+							
+							if size1 > size2:
+								rouges.add(orf2.rstrip("+-"))
 
+							else:
+								rouges.add(orf1.rstrip("+-"))						
+
+					elif  start1 <= start2 <= end1:
+						if (end1-start2) / size1 >= 0.75:
+							
+							if size1 > size2:
+								rouges.add(orf2.rstrip("+-"))
+
+							else:
+								rouges.add(orf1.rstrip("+-"))
+
+					elif start1 <= end2 <= end1:
+						if (end2-start1) / size1 >= 0.75:
+							
 							if size1 > size2:
 								rouges.add(orf2.rstrip("+-"))
 
