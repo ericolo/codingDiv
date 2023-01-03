@@ -3,6 +3,9 @@
 #ARGS
 reference_genome=$1
 
+#file name without dir and extension
+file_name=$(awk -F'.' '{print $1}' <(echo $(basename $reference_genome)))
+
 reads_contigs=$2
 
 #To manage globs
@@ -271,36 +274,36 @@ else
 
 					if [ $genome_size -lt 100000 ]
 					then
-						printf "\n\n### svg_stack.py --direction=V --margin=15 $genome_name'_prodigal.svg' $genome_name'_phanotate.svg' $genome_name'_pnps.svg' pnps_legend.svg $genome_name'_neg_strand_pnps.svg'  $genome_name'_bar_chart.svg' > summary.svg\n\n"
-						svg_stack.py --direction=V --margin=15 $genome_name"_prodigal.svg" $genome_name"_phanotate.svg" $genome_name"_pnps.svg" pnps_legend.svg $genome_name"_neg_strand_pnps.svg"  $genome_name"_bar_chart.svg" > summary.svg
+						printf "\n\n### svg_stack.py --direction=V --margin=15 $genome_name'_prodigal.svg' $genome_name'_phanotate.svg' $genome_name'_pnps.svg' pnps_legend.svg $genome_name'_neg_strand_pnps.svg'  $genome_name'_bar_chart.svg' > $file_name'_summary.svg'\n\n"
+						svg_stack.py --direction=V --margin=15 $genome_name"_prodigal.svg" $genome_name"_phanotate.svg" $genome_name"_pnps.svg" pnps_legend.svg $genome_name"_neg_strand_pnps.svg"  $genome_name"_bar_chart.svg" > $file_name"_summary.svg"
 						exit_code=$?
 
 					elif [ $genome_size -gt 100000 ] && [ $force_svg = "Y" ]
 					then
-						printf "\n\n### svg_stack.py --direction=V --margin=15 $genome_name'_prodigal.svg' $genome_name'_phanotate.svg' $genome_name'_pnps.svg' pnps_legend.svg $genome_name'_neg_strand_pnps.svg'  $genome_name'_bar_chart.svg' > summary.svg\n\n"
-						svg_stack.py --direction=V --margin=15 $genome_name"_prodigal.svg" $genome_name"_phanotate.svg" $genome_name"_pnps.svg" pnps_legend.svg $genome_name"_neg_strand_pnps.svg"  $genome_name"_bar_chart.svg" > summary.svg
+						printf "\n\n### svg_stack.py --direction=V --margin=15 $genome_name'_prodigal.svg' $genome_name'_phanotate.svg' $genome_name'_pnps.svg' pnps_legend.svg $genome_name'_neg_strand_pnps.svg'  $genome_name'_bar_chart.svg' > $file_name'_summary.svg'\n\n"
+						svg_stack.py --direction=V --margin=15 $genome_name"_prodigal.svg" $genome_name"_phanotate.svg" $genome_name"_pnps.svg" pnps_legend.svg $genome_name"_neg_strand_pnps.svg"  $genome_name"_bar_chart.svg" > $file_name"_summary.svg"
 						exit_code=$?
 					fi
 
 					#Avoiding black background
 
-					sed -i 's/#333333;"/#333333; fill: none;"/g' summary.svg
+					sed -i 's/#333333;"/#333333; fill: none;"/g' $file_name"_summary.svg"
 
 					#avoiding black squares around maps
 
-					sed -i 's/"fill:#ffffff;"\/>/"fill:#ffffff;stroke:#ffffff"\/>/g' summary.svg
+					sed -i 's/"fill:#ffffff;"\/>/"fill:#ffffff;stroke:#ffffff"\/>/g' $file_name"_summary.svg"
 
 					#avoiding white text
 
-					sed -i 's/fill: none;$//g' summary.svg
+					sed -i 's/fill: none;$//g' $file_name"_summary.svg"
 
 					mkdir ../final_results
 
-					mv ../summary_table.tsv ../final_results/
+					mv ../summary_table.tsv ../final_results/$file_name"_summary_table.tsv"
 
-					mv summary.svg ../final_results/
+					mv $file_name"_summary.svg" ../final_results/
 
-					mv ../full_snp_table.tsv ../final_results/
+					mv ../full_snp_table.tsv ../final_results/$file_name"_full_snp_table.tsv"
 
 					} &>>stdout.txt
 
@@ -359,36 +362,36 @@ else
 
 					if [ $genome_size -lt 100000 ]
 					then
-						printf "\n\n### svg_stack.py --direction=V --margin=15 $genome_name'_prodigal.svg' $genome_name'_phanotate.svg' $genome_name'_pnps.svg' pnps_legend.svg $genome_name'_neg_strand_pnps.svg'  $genome_name'_bar_chart.svg' > summary.svg\n\n"
-						svg_stack.py --direction=V --margin=15 $genome_name"_prodigal.svg" $genome_name"_phanotate.svg" $genome_name"_pnps.svg" pnps_legend.svg $genome_name"_neg_strand_pnps.svg"  $genome_name"_bar_chart.svg" > summary.svg
+						printf "\n\n### svg_stack.py --direction=V --margin=15 $genome_name'_prodigal.svg' $genome_name'_phanotate.svg' $genome_name'_pnps.svg' pnps_legend.svg $genome_name'_neg_strand_pnps.svg'  $genome_name'_bar_chart.svg' > $file_name'_summary.svg'\n\n"
+						svg_stack.py --direction=V --margin=15 $genome_name"_prodigal.svg" $genome_name"_phanotate.svg" $genome_name"_pnps.svg" pnps_legend.svg $genome_name"_neg_strand_pnps.svg"  $genome_name"_bar_chart.svg" > $file_name"_summary.svg"
 						exit_code=$?
 
 					elif [ $genome_size -gt 100000 ] && [ $force_svg = "Y" ]
 					then
-						printf "\n\n### svg_stack.py --direction=V --margin=15 $genome_name'_prodigal.svg' $genome_name'_phanotate.svg' $genome_name'_pnps.svg' pnps_legend.svg $genome_name'_neg_strand_pnps.svg'  $genome_name'_bar_chart.svg' > summary.svg\n\n"
-						svg_stack.py --direction=V --margin=15 $genome_name"_prodigal.svg" $genome_name"_phanotate.svg" $genome_name"_pnps.svg" pnps_legend.svg $genome_name"_neg_strand_pnps.svg"  $genome_name"_bar_chart.svg" > summary.svg
+						printf "\n\n### svg_stack.py --direction=V --margin=15 $genome_name'_prodigal.svg' $genome_name'_phanotate.svg' $genome_name'_pnps.svg' pnps_legend.svg $genome_name'_neg_strand_pnps.svg'  $genome_name'_bar_chart.svg' > $file_name'_summary.svg'\n\n"
+						svg_stack.py --direction=V --margin=15 $genome_name"_prodigal.svg" $genome_name"_phanotate.svg" $genome_name"_pnps.svg" pnps_legend.svg $genome_name"_neg_strand_pnps.svg"  $genome_name"_bar_chart.svg" > $file_name"_summary.svg"
 						exit_code=$?
 					fi
 
 					#Avoiding black background
 
-					sed -i 's/#333333;"/#333333; fill: none;"/g' summary.svg
+					sed -i 's/#333333;"/#333333; fill: none;"/g' $file_name"_summary.svg"
 
 					#avoiding black squares around maps
 
-					sed -i 's/"fill:#ffffff;"\/>/"fill:#ffffff;stroke:#ffffff"\/>/g' summary.svg
+					sed -i 's/"fill:#ffffff;"\/>/"fill:#ffffff;stroke:#ffffff"\/>/g' $file_name"_summary.svg"
 
 					#avoiding white text
 
-					sed -i 's/fill: none;$//g' summary.svg
+					sed -i 's/fill: none;$//g' $file_name"_summary.svg"
 
 					mkdir ../final_results
 
-					mv ../summary_table.tsv ../final_results/
+					mv ../summary_table.tsv ../final_results/$file_name"_summary_table.tsv"
 
-					mv summary.svg ../final_results/
+					mv $file_name"_summary.svg" ../final_results/
 
-					mv ../full_snp_table.tsv ../final_results/
+					mv ../full_snp_table.tsv ../final_results/$file_name"_full_snp_table.tsv"
 
 					} &>>stdout.txt
 		 
@@ -467,22 +470,22 @@ cd output_files
 
 #Avoiding black background
 
-sed -i 's/#333333;"/#333333; fill: none;"/g' summary.svg
+sed -i 's/#333333;"/#333333; fill: none;"/g' $file_name"_summary.svg"
 
 #avoiding black squares around maps
 
-sed -i 's/"fill:#ffffff;"\/>/"fill:#ffffff;stroke:#ffffff"\/>/g' summary.svg
+sed -i 's/"fill:#ffffff;"\/>/"fill:#ffffff;stroke:#ffffff"\/>/g' $file_name"_summary.svg"
 
 #avoiding white text
 
-sed -i 's/fill: none;$//g' summary.svg
+sed -i 's/fill: none;$//g' $file_name"_summary.svg"
 
 mkdir ../final_results
 
-mv ../summary_table.tsv ../final_results/
+mv ../summary_table.tsv ../final_results/$file_name"_summary_table.tsv"
 
-mv summary.svg ../final_results/
+mv $file_name"_summary.svg" ../final_results/
 
-mv ../full_snp_table.tsv ../final_results/
+mv ../full_snp_table.tsv ../final_results/$file_name"_full_snp_table.tsv"
 
 } &>>stdout.txt
