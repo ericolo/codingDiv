@@ -131,7 +131,7 @@ else
 		exit_code=$?
 		} &>>stdout.txt
 
-		if [ $exit_code -eq 0 ] && [[ $(awk '{a+=length($NF)} END {print a}' $snp_file) -ne $genome_size ]]
+		if [ $exit_code -eq 0 ] && [[ $(awk '{a+=length($NF)} END {print a}' $snp_file) -ne $genome_size ]] && [ -s $depth_file ]
 		then
 
 			########################SNP assessment, on full length reading frames
@@ -403,7 +403,7 @@ else
 				echo "#################################################"
 			fi
 
-		elif [ $exit_code -eq 0 ] && [[ $(awk '{a+=length($NF)} END {print a}' $snp_file) == $genome_size ]]
+		elif [ $exit_code -eq 0 ] && [[ $(awk '{a+=length($NF)} END {print a}' $snp_file) == $genome_size ]] || [ ! -s $depth_file ]
 		then
 			echo "#####################################"
 			echo "No SNPs were found, execution halted"
