@@ -86,9 +86,9 @@ snp_na=snp_na %>% left_join(a,by=c("position_on_genome"="position_on_genome"))
 
 toto=snp_na %>% group_by(position_on_genome,frame,sub_nature) %>% summarise("propo"=sum(snp_depth)/total_depth,"pixel"=first(pixel),"count_"=n()) %>% distinct() %>% group_by(pixel,frame,sub_nature) %>% summarise("ratio"=sum(propo)/window_size,"count_total"=sum(count_))
 
-toto=rbind(toto %>% filter(sub_nature %in% c("Neg<-2","Neg>=-2")) %>% mutate(ratio=-ratio),toto %>% filter(!sub_nature %in% c("Neg<-2","Neg>=-2") ))
+toto=rbind(toto %>% filter(sub_nature %in% c("Neg<-2","Neg>=-2","AAtoSTOP","STOPtoAA")) %>% mutate(ratio=-ratio),toto %>% filter(!sub_nature %in% c("Neg<-2","Neg>=-2","AAtoSTOP","STOPtoAA") ))
 
-toto=rbind(toto %>% filter(sub_nature %in% c("Neg<-2","Neg>=-2")) %>% mutate(count_total=-count_total),toto %>% filter(!sub_nature %in% c("Neg<-2","Neg>=-2") ))
+toto=rbind(toto %>% filter(sub_nature %in% c("Neg<-2","Neg>=-2","AAtoSTOP","STOPtoAA")) %>% mutate(count_total=-count_total),toto %>% filter(!sub_nature %in% c("Neg<-2","Neg>=-2","AAtoSTOP","STOPtoAA") ))
 
 toto$frame=factor(toto$frame, levels=c("3","2","1","-1","-2","-3"))
 
