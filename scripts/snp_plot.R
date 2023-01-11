@@ -108,7 +108,7 @@ toto$sub_nature=factor(toto$sub_nature,levels=c("Pos","Syn","AAtoSTOP","STOPtoAA
 
 p=ggplot(data=toto) +
   geom_col(mapping = aes(x=factor(pixel), y=count_total, fill=sub_nature)) +
-  scale_fill_manual(values=c(`Neg<-2`="#fc4e2a",`Neg>=-2`="#feb24c",Pos="#79ff79",Syn="#32adff",AAtoSTOP="#bd0026",STOPtoAA="#e31a1c"))+
+  scale_fill_manual(values=c(Pos="#79ff79",Syn="#32adff",`Neg>=-2`="#feb24c",`Neg<-2`="#fc4e2a",STOPtoAA="#e31a1c",AAtoSTOP="#bd0026"))+
   theme_bw()+
   theme(legend.position = "bottom")+
   theme(legend.title=element_blank())+
