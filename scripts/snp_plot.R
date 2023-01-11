@@ -104,7 +104,7 @@ toto=rbind(a,b)
 #R v4 does not allow replacement with a different type
 toto$frame=replace_na(toto$frame,as.factor(1))
 
-toto$sub_nature=factor(toto$sub_nature,levels=c("Syn","Pos","Neg>=-2","Neg<-2","STOPtoAA","AAtoSTOP"))
+toto$sub_nature=factor(toto$sub_nature,levels=c("Pos","Syn","AAtoSTOP","STOPtoAA","Neg<-2","Neg>=-2"))
 
 p=ggplot(data=toto) +
   geom_col(mapping = aes(x=factor(pixel), y=count_total, fill=sub_nature)) +
