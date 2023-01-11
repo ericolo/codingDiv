@@ -104,9 +104,11 @@ toto=rbind(a,b)
 #R v4 does not allow replacement with a different type
 toto$frame=replace_na(toto$frame,as.factor(1))
 
+toto$sub_nature=factor(toto$sub_nature,levels=c("Syn","Pos","Neg>=-2","Neg<-2","STOPtoAA","AAtoSTOP"))
+
 p=ggplot(data=toto) +
   geom_col(mapping = aes(x=factor(pixel), y=count_total, fill=sub_nature)) +
-  scale_fill_manual(values=c(`Neg<-2`="red",`Neg>=-2`="orange",Pos="green",Syn="skyblue",AAtoSTOP="black",STOPtoAA="#838383"))+
+  scale_fill_manual(values=c(`Neg<-2`="#fc4e2a",`Neg>=-2`="#feb24c",Pos="#79ff79",Syn="#32adff",AAtoSTOP="#bd0026",STOPtoAA="#e31a1c"))+
   theme_bw()+
   theme(legend.position = "bottom")+
   theme(legend.title=element_blank())+
