@@ -7,34 +7,34 @@ then
 	reference_genome=$2
 	min_orf_size=$3
 	translation_table=$4
-	force_svg=$4
+	force_svg=$5
 
 	if [ -z "${reference_genome}" ] || [ -z "${min_orf_size}" ] || [ -z "${translation_table}" ] || [ -z "${force_svg}" ]
 	then 
 			echo """
-		codingDiv.sh v1.0 
+codingDiv.sh v1.0 
 
-		-g, --getorf_only
-		    Produce only SVG plot of protein predictions, useful when no microdiversity data available
+-g, --getorf_only
+    Produce only SVG plot of protein predictions, useful when no microdiversity data available
 
-		Positional arguments: 
-		1- Reference genome / Studied genome (FASTA)
+Positional arguments: 
+1- Reference genome / Studied genome (FASTA)
 
-		2- Minimal ORF size (in nucleotides) [integer]
+2- Minimal ORF size (in nucleotides) [integer]
 
-		3- Translation table number used by EMBOSS getorf - https://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi [integer 1-23]
+3- Translation table number used by EMBOSS getorf - https://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi [integer 1-23]
 
-		4- Force SVG for a very large genome, over 100 kilobases [Y|N]
+4- Force SVG for a very large genome, over 100 kilobases [Y|N]
 
-		This last option is not recomended as it will generate a very large SVG file.
-		A better option would be splitting your genomes in several regions.
+This last option is not recomended as it will generate a very large SVG file.
+A better option would be splitting your genomes in several regions.
 
-		Cite us:
+Cite us:
 
-		CodingDiv : visualize SNP-level microdiversity to discriminate between coding and noncoding regions.
-		Eric Olo Ndela & François Enault (2023, unpublished).
-		Laboratoire Microorganismes Genome & Environnement (LMGE)
-		Clermont-Auvergne University (UCA)
+CodingDiv : visualize SNP-level microdiversity to discriminate between coding and noncoding regions.
+Eric Olo Ndela & François Enault (2023, unpublished).
+Laboratoire Microorganismes Genome & Environnement (LMGE)
+Clermont-Auvergne University (UCA)
 		        """
 	else
 
@@ -88,48 +88,58 @@ then
 		if [ $exit_code21 -eq 0 ] || [ $exit_code22 -eq 0 ] || [ $exit_code23 -eq 0 ]
 		then
 
-			echo "Plotting..."
+			if [ $genome_size -lt 100000 ] || [ $genome_size -gt 100000 ] && [ $force_svg = "Y" ]
+			then
 
-			{
-			########################## prodigal & phanotate maps
-			printf "\n\n### prodigal_map.py $genome_name $genome_size $prodigal_faa\n\n"
-			prodigal_map.py $genome_name $genome_size $prodigal_faa
-			exit_code11=$?
+				echo "Plotting..."
 
-			printf "\n\n### phanotate_map.py $genome_name $genome_size $phanotate_tsv\n\n"
-			phanotate_map.py $genome_name $genome_size $phanotate_tsv
-			exit_code12=$?
+				{
+				########################## prodigal & phanotate maps
+				printf "\n\n### prodigal_map.py $genome_name $genome_size $prodigal_faa\n\n"
+				prodigal_map.py $genome_name $genome_size $prodigal_faa
+				exit_code11=$?
 
-			printf "\n\n### getorf_map_pos.py $genome_name $genome_size $ref_orfs\n\n"
-			getorf_map_pos.py $genome_name $genome_size $ref_orfs
-			exit_code13=$?
+				printf "\n\n### phanotate_map.py $genome_name $genome_size $phanotate_tsv\n\n"
+				phanotate_map.py $genome_name $genome_size $phanotate_tsv
+				exit_code12=$?
 
-			printf "\n\n### getorf_map_neg.py $genome_name $genome_size $ref_orfs\n\n"
-			getorf_map_neg.py $genome_name $genome_size $ref_orfs
-			exit_code14=$?
+				printf "\n\n### getorf_map_pos.py $genome_name $genome_size $ref_orfs\n\n"
+				getorf_map_pos.py $genome_name $genome_size $ref_orfs
+				exit_code13=$?
 
-			printf "\n\n### svg_stack.py --direction=V --margin=15 $genome_name'_prodigal.svg' $genome_name'_phanotate.svg' $genome_name'_pnps.svg' pnps_legend.svg $genome_name'_neg_strand_pnps.svg'  $genome_name'_bar_chart.svg' > $file_name'_predictions.svg'\n\n"
-			svg_stack.py --direction=V --margin=15 $genome_name"_prodigal.svg" $genome_name"_phanotate.svg" $genome_name"_getorf_pos.svg" $genome_name"_getorf_neg.svg" > $file_name"_predictions.svg"
-			exit_code15=$?
+				printf "\n\n### getorf_map_neg.py $genome_name $genome_size $ref_orfs\n\n"
+				getorf_map_neg.py $genome_name $genome_size $ref_orfs
+				exit_code14=$?
 
-			rm $genome_name"_prodigal.svg" $genome_name"_phanotate.svg" $genome_name"_getorf_pos.svg" $genome_name"_getorf_neg.svg"
+				printf "\n\n### svg_stack.py --direction=V --margin=15 $genome_name'_prodigal.svg' $genome_name'_phanotate.svg' $genome_name'_pnps.svg' pnps_legend.svg $genome_name'_neg_strand_pnps.svg'  $genome_name'_bar_chart.svg' > $file_name'_predictions.svg'\n\n"
+				svg_stack.py --direction=V --margin=15 $genome_name"_prodigal.svg" $genome_name"_phanotate.svg" $genome_name"_getorf_pos.svg" $genome_name"_getorf_neg.svg" > $file_name"_predictions.svg"
+				exit_code15=$?
 
-			} &>>stdout.txt
+				rm $genome_name"_prodigal.svg" $genome_name"_phanotate.svg" $genome_name"_getorf_pos.svg" $genome_name"_getorf_neg.svg"
 
-			if [ $exit_code11 -eq 0 ] || [ $exit_code12 -eq 0 ] || [ $exit_code13 -eq 0 ] || [ $exit_code14 -eq 0 ] || [ $exit_code15 -eq 0 ]
-			then	
+				} &>>stdout.txt
 
+				if [ $exit_code11 -eq 0 ] || [ $exit_code12 -eq 0 ] || [ $exit_code13 -eq 0 ] || [ $exit_code14 -eq 0 ] || [ $exit_code15 -eq 0 ]
+				then	
+
+					echo "DONE"
+					echo "Genomic maps are plotted into "$file_name"_predictions.svg"
+					echo "prodigal : " $prodigal_faa "and" $prodigal_gbk
+					echo "phanotate :" $phanotate_tsv
+					echo "getorf :" $ref_orfs
+
+				else
+					echo "#################################################"
+					echo "There was an error, check stdout.txt for details"
+					echo "#################################################"	
+				fi		
+			else
+				echo "No SVG was produced due to the large size of the genome"
 				echo "DONE"
-				echo "Genomic maps are plotted into "$file_name"_predictions.svg"
 				echo "prodigal : " $prodigal_faa "and" $prodigal_gbk
 				echo "phanotate :" $phanotate_tsv
 				echo "getorf :" $ref_orfs
-
-			else
-				echo "#################################################"
-				echo "There was an error, check stdout.txt for details"
-				echo "#################################################"	
-			fi		
+			fi
 
 		else
 			echo "#################################################"
