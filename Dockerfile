@@ -110,7 +110,7 @@ ENV PATH=$PATH:/codingDiv/scripts
 RUN echo $PATH
 
 #Just to have vim for troubleshooting
-RUN apt-get install -y vim
+RUN apt-get install -y nano
 
 WORKDIR /data
 
