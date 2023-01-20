@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-if [ "$1" = "-getorf_only" ] || [ "$1" = "-g" ]
+if [ "$1" = "--getorf_only" ] || [ "$1" = "-g" ]
 then
 
 	#ARGS
@@ -8,6 +8,36 @@ then
 	min_orf_size=$3
 	translation_table=$4
 	force_svg=$4
+
+	if [ -z "${reference_genome}" ] || [ -z "${min_orf_size}" ] || [ -z "${translation_table}" ] || [ -z "${force_svg}" ]
+	then 
+		echo """
+	codingDiv.sh v1.0 
+
+	-g, --getorf_only
+	    Produce only SVG plot of protein predictions, useful when no microdiversity data available
+
+	Positional arguments: 
+	1- Reference genome / Studied genome (FASTA)
+
+	2- Minimal ORF size (in nucleotides) [integer]
+
+	3- Translation table number used by EMBOSS getorf - https://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi [integer 1-23]
+
+	4- Force SVG for a very large genome, over 100 kilobases [Y|N]
+
+	This last option is not recomended as it will generate a very large SVG file.
+	A better option would be splitting your genomes in several regions.
+
+	Cite us:
+
+	CodingDiv : visualize SNP-level microdiversity to discriminate between coding and noncoding regions.
+	Eric Olo Ndela & François Enault (2023, unpublished).
+	Laboratoire Microorganismes Genome & Environnement (LMGE)
+	Clermont-Auvergne University (UCA)
+	        """
+	else
+
 
 	#Fetching reference name and size
 	genome_name=$(grep '>' $reference_genome |awk '{print $1}' |sed -re 's/>//')
@@ -35,9 +65,11 @@ then
 	######################################################
 
 	#Protein prediction
-
+	echo "Protein prediction..."
+	{
 	printf "\n\n### getorf -sequence $reference_genome -outseq $ref_orfs -table $translation_table -minsize $min_orf_size -find 1 -circular N -reverse Y\n\n"
 	getorf -sequence $reference_genome -outseq $ref_orfs -table $translation_table -minsize $min_orf_size -find 1 -circular N -reverse Y
+	exit_code21=$?
 
 	grep '>' $ref_orfs | awk '{if($5=="(REVERSE") {print $1"-\t"$2"\t"$4} else {print $1"+\t"$2"\t"$4}}' |sed -re 's/>// ; s/\[// ; s/\]//' > $ref_orfs_tsv
 
@@ -45,28 +77,66 @@ then
 
 	printf "\n\n### prodigal -i $reference_genome -o $prodigal_gbk -a $prodigal_faa -p meta\n\n"
 	prodigal -i $reference_genome -o $prodigal_gbk -a $prodigal_faa -p meta
+	exit_code22=$?
 
 	printf "\n\n### phanotate.py $reference_genome > $phanotate_tsv\n\n"
 	phanotate.py $reference_genome > $phanotate_tsv
+	exit_code23=$?
+
+	} &>>stdout.txt
+
+	if [ $exit_code21 -eq 0 ] || [ $exit_code22 -eq 0 ] || [ $exit_code23 -eq 0 ]
+	then
+
+		echo "Plotting..."
+
+		{
+		########################## prodigal & phanotate maps
+		printf "\n\n### prodigal_map.py $genome_name $genome_size $prodigal_faa\n\n"
+		prodigal_map.py $genome_name $genome_size $prodigal_faa
+		exit_code11=$?
+
+		printf "\n\n### phanotate_map.py $genome_name $genome_size $phanotate_tsv\n\n"
+		phanotate_map.py $genome_name $genome_size $phanotate_tsv
+		exit_code12=$?
+
+		printf "\n\n### getorf_map_pos.py $genome_name $genome_size $ref_orfs\n\n"
+		getorf_map_pos.py $genome_name $genome_size $ref_orfs
+		exit_code13=$?
+
+		printf "\n\n### getorf_map_neg.py $genome_name $genome_size $ref_orfs\n\n"
+		getorf_map_neg.py $genome_name $genome_size $ref_orfs
+		exit_code14=$?
+
+		printf "\n\n### svg_stack.py --direction=V --margin=15 $genome_name'_prodigal.svg' $genome_name'_phanotate.svg' $genome_name'_pnps.svg' pnps_legend.svg $genome_name'_neg_strand_pnps.svg'  $genome_name'_bar_chart.svg' > $file_name'_predictions.svg'\n\n"
+		svg_stack.py --direction=V --margin=15 $genome_name"_prodigal.svg" $genome_name"_phanotate.svg" $genome_name"_getorf_pos.svg" $genome_name"_getorf_neg.svg" > $file_name"_predictions.svg"
+		exit_code15=$?
+
+		rm $genome_name"_prodigal.svg" $genome_name"_phanotate.svg" $genome_name"_getorf_pos.svg" $genome_name"_getorf_neg.svg"
+
+		} &>>stdout.txt
+
+		if [ $exit_code11 -eq 0 ] || [ $exit_code12 -eq 0 ] || [ $exit_code13 -eq 0 ] || [ $exit_code14 -eq 0 ] || [ $exit_code15 -eq 0 ]
+		then	
+
+			echo "DONE"
+			echo "Genomic maps are plotted into "$file_name"_predictions.svg"
+			echo "prodigal : " $prodigal_faa "and" $prodigal_gbk
+			echo "phanotate :" $phanotate_tsv
+			echo "getorf :" $ref_orfs
+			
+		else
+			echo "#################################################"
+			echo "There was an error, check stdout.txt for details"
+			echo "#################################################"			
+
+	else
+		echo "#################################################"
+		echo "There was an error, check stdout.txt for details"
+		echo "#################################################"
 
 
-	########################## prodigal & phanotate maps
-	printf "\n\n### prodigal_map.py $genome_name $genome_size $prodigal_faa\n\n"
-	prodigal_map.py $genome_name $genome_size $prodigal_faa
-	exit_code5=$?
 
-	printf "\n\n### phanotate_map.py $genome_name $genome_size $phanotate_tsv\n\n"
-	phanotate_map.py $genome_name $genome_size $phanotate_tsv
-	exit_code6=$?
-
-	printf "\n\n### getorf_map_pos.py $genome_name $genome_size $ref_orfs\n\n"
-	getorf_map_pos.py $genome_name $genome_size $ref_orfs
-
-	printf "\n\n### getorf_map_neg.py $genome_name $genome_size $ref_orfs\n\n"
-	getorf_map_neg.py $genome_name $genome_size $ref_orfs
-
-	printf "\n\n### svg_stack.py --direction=V --margin=15 $genome_name'_prodigal.svg' $genome_name'_phanotate.svg' $genome_name'_pnps.svg' pnps_legend.svg $genome_name'_neg_strand_pnps.svg'  $genome_name'_bar_chart.svg' > $file_name'_predictions.svg'\n\n"
-	svg_stack.py --direction=V --margin=15 $genome_name"_prodigal.svg" $genome_name"_phanotate.svg" $genome_name"_getorf_pos.svg" $genome_name"_getorf_neg.svg" > $file_name"_predictions.svg"
 
 else
 
@@ -107,6 +177,10 @@ else
 	then 
 		echo """
 	codingDiv.sh v1.0 
+
+	Tags:
+	-g, --getorf_only
+	    Produce only SVG plot of protein predictions, useful when no microdiversity data available
 
 	Positional arguments: 
 	1- Reference genome / Studied genome (FASTA)
