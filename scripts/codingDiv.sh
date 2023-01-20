@@ -233,39 +233,39 @@ else
 	if [ -z "${reference_genome}" ] || [ -z "${reads_contigs}" ] || [ -z "${min_orf_size}" ] || [ -z "${translation_table}" ] || [ -z "${min_reads}" ] || [ -z "${min_percentage}" ] || [ -z "${num_threads}" ]
 	then 
 		echo """
-	codingDiv.sh v1.0 
+codingDiv.sh v1.0 
 
-	Tags:
-	-g, --getorf_only
-	    Produce only SVG plot of protein predictions, useful when no microdiversity data available
+Tags:
+-g, --getorf_only
+    Produce only SVG plot of protein predictions, useful when no microdiversity data available
 
-	Positional arguments: 
-	1- Reference genome / Studied genome (FASTA)
+Positional arguments: 
+1- Reference genome / Studied genome (FASTA)
 
-	2- Reads or contigs to map (FASTA or FASTQ)
-	Here you can input a set of metagenomes with a glob, escaping the character as follows: \"\*.fastq.gz\"
+2- Reads or contigs to map (FASTA or FASTQ)
+Here you can input a set of metagenomes with a glob, escaping the character as follows: \"\*.fastq.gz\"
 
-	3- Minimal ORF size (in nucleotides) [integer]
+3- Minimal ORF size (in nucleotides) [integer]
 
-	4- Translation table number used by EMBOSS getorf - https://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi [integer 1-23]
+4- Translation table number used by EMBOSS getorf - https://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi [integer 1-23]
 
-	5- Minimal number of reads required to evaluate an SNP [integer]
+5- Minimal number of reads required to evaluate an SNP [integer]
 
-	6- Minimal % of total mapped reads required to evaluate an SNP [double]
+6- Minimal % of total mapped reads required to evaluate an SNP [double]
 
-	7- Number of CPU allowed for mapping [integer]
+7- Number of CPU allowed for mapping [integer]
 
-	8- Force SVG for a very large genome, over 100 kilobases [Y|N]
+8- Force SVG for a very large genome, over 100 kilobases [Y|N]
 
-	This last option is not recomended as it will generate a very large SVG file.
-	A better option would be splitting your genomes in several regions.
+This last option is not recomended as it will generate a very large SVG file.
+A better option would be splitting your genomes in several regions.
 
-	Cite us:
+Cite us:
 
-	CodingDiv : visualize SNP-level microdiversity to discriminate between coding and noncoding regions.
-	Eric Olo Ndela & François Enault (2023, unpublished).
-	Laboratoire Microorganismes Genome & Environnement (LMGE)
-	Clermont-Auvergne University (UCA)
+CodingDiv : visualize SNP-level microdiversity to discriminate between coding and noncoding regions.
+Eric Olo Ndela & François Enault (2023, unpublished).
+Laboratoire Microorganismes Genome & Environnement (LMGE)
+Clermont-Auvergne University (UCA)
 	        """
 	else
 		#file name without dir and extension
