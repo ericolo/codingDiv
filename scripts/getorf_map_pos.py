@@ -81,4 +81,4 @@ for i in range(len(genomes)):
 	genome_plot.set_xlabel("GETORF prediction\n ",loc="left", weight='bold', color="green",size=12)
 	genome_plot.xaxis.set_label_position('top')
 
-	genome_plot.figure.savefig("./"+genome+'getorf_pos.svg', bbox_inches='tight', dpi=300)
+	genome_plot.figure.savefig("./"+genome+'_getorf_pos.svg', bbox_inches='tight', dpi=300)
