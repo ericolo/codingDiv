@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-if [ $1 = "-getor_only" ] || [ $1 = "-g" ]
+if [ "$1" = "-getorf_only" ] || [ "$1" = "-g" ]
 then
 
 	#ARGS
