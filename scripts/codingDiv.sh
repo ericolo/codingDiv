@@ -124,18 +124,18 @@ then
 			echo "prodigal : " $prodigal_faa "and" $prodigal_gbk
 			echo "phanotate :" $phanotate_tsv
 			echo "getorf :" $ref_orfs
-			
+
 		else
 			echo "#################################################"
 			echo "There was an error, check stdout.txt for details"
-			echo "#################################################"			
+			echo "#################################################"	
+		fi		
 
 	else
 		echo "#################################################"
 		echo "There was an error, check stdout.txt for details"
 		echo "#################################################"
-
-
+	fi
 
 
 else
