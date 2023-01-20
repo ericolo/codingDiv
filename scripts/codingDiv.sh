@@ -88,7 +88,7 @@ Clermont-Auvergne University (UCA)
 		if [ $exit_code21 -eq 0 ] || [ $exit_code22 -eq 0 ] || [ $exit_code23 -eq 0 ]
 		then
 
-			if [ $genome_size -lt 100000 ] || [ $genome_size -gt 100000 ] && [ $force_svg = "Y" ]
+			if [ $genome_size -lt 100000 ]
 			then
 
 				echo "Plotting..."
@@ -132,7 +132,53 @@ Clermont-Auvergne University (UCA)
 					echo "#################################################"
 					echo "There was an error, check stdout.txt for details"
 					echo "#################################################"	
-				fi		
+				fi
+
+			elif [ $genome_size -gt 100000 ] && [ $force_svg = "Y" ]
+
+				echo "Plotting..."
+
+				{
+				########################## prodigal & phanotate maps
+				printf "\n\n### prodigal_map.py $genome_name $genome_size $prodigal_faa\n\n"
+				prodigal_map.py $genome_name $genome_size $prodigal_faa
+				exit_code11=$?
+
+				printf "\n\n### phanotate_map.py $genome_name $genome_size $phanotate_tsv\n\n"
+				phanotate_map.py $genome_name $genome_size $phanotate_tsv
+				exit_code12=$?
+
+				printf "\n\n### getorf_map_pos.py $genome_name $genome_size $ref_orfs\n\n"
+				getorf_map_pos.py $genome_name $genome_size $ref_orfs
+				exit_code13=$?
+
+				printf "\n\n### getorf_map_neg.py $genome_name $genome_size $ref_orfs\n\n"
+				getorf_map_neg.py $genome_name $genome_size $ref_orfs
+				exit_code14=$?
+
+				printf "\n\n### svg_stack.py --direction=V --margin=15 $genome_name'_prodigal.svg' $genome_name'_phanotate.svg' $genome_name'_pnps.svg' pnps_legend.svg $genome_name'_neg_strand_pnps.svg'  $genome_name'_bar_chart.svg' > $file_name'_predictions.svg'\n\n"
+				svg_stack.py --direction=V --margin=15 $genome_name"_prodigal.svg" $genome_name"_phanotate.svg" $genome_name"_getorf_pos.svg" $genome_name"_getorf_neg.svg" > $file_name"_predictions.svg"
+				exit_code15=$?
+
+				rm $genome_name"_prodigal.svg" $genome_name"_phanotate.svg" $genome_name"_getorf_pos.svg" $genome_name"_getorf_neg.svg"
+
+				} &>>stdout.txt
+
+				if [ $exit_code11 -eq 0 ] || [ $exit_code12 -eq 0 ] || [ $exit_code13 -eq 0 ] || [ $exit_code14 -eq 0 ] || [ $exit_code15 -eq 0 ]
+				then	
+
+					echo "DONE"
+					echo "Genomic maps are plotted into "$file_name"_predictions.svg"
+					echo "prodigal : " $prodigal_faa "and" $prodigal_gbk
+					echo "phanotate :" $phanotate_tsv
+					echo "getorf :" $ref_orfs
+
+				else
+					echo "#################################################"
+					echo "There was an error, check stdout.txt for details"
+					echo "#################################################"	
+				fi
+
 			else
 				echo "No SVG was produced due to the large size of the genome"
 				echo "DONE"
