@@ -135,6 +135,7 @@ Clermont-Auvergne University (UCA)
 				fi
 
 			elif [ $genome_size -gt 100000 ] && [ $force_svg = "Y" ]
+			then
 
 				echo "Plotting..."
 
