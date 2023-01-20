@@ -45,6 +45,7 @@ Positional arguments:
 1- Reference genome / Studied genome (FASTA)
 
 2- Reads or contigs to map (FASTA or FASTQ)
+Here you can input a set of metagenomes with a glob, escaping the character as follows: \"\*.fastq.gz\"
 
 3- Minimal ORF size (in nucleotides) [integer]
 

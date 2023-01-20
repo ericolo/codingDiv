@@ -121,6 +121,13 @@ final_tab$`Neg<-2` = replace_na(final_tab$`Neg<-2`,0)
 
 final_tab$AAtoSTOP = replace_na(final_tab$AAtoSTOP,0)
 
+#In case not all sub_nature are found
+if ( length(final_tab$Syn)==0 ) {Syn=0}
+if ( length(final_tab$Pos)==0 ) {Pos=0}
+if ( length(final_tab$`Neg>=-2`)==0 ) {`Neg>=-2`=0}
+if ( length(final_tab$`Neg<-2`)==0 ) {`Neg<-2`=0}
+if ( length(final_tab$AAtoSTOP)==0 ) {AAtoSTOP=0}
+
 final_tab= final_tab %>% mutate("#total_snp"= Syn+Pos+`Neg>=-2`+`Neg<-2`+AAtoSTOP )
 
 final_tab= final_tab %>% rename("pNeg/pS"=pNpS)
