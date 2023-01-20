@@ -3,9 +3,6 @@
 #ARGS
 reference_genome=$1
 
-#file name without dir and extension
-file_name=$(awk -F'.' '{print $1}' <(echo $(basename $reference_genome)))
-
 reads_contigs=$2
 
 #To manage globs
@@ -70,6 +67,8 @@ Laboratoire Microorganismes Genome & Environnement (LMGE)
 Clermont-Auvergne University (UCA)
         """
 else
+	#file name without dir and extension
+	file_name=$(awk -F'.' '{print $1}' <(echo $(basename $reference_genome)))
 
 	if [ ! -f "$reference_genome" ]
 	then 
