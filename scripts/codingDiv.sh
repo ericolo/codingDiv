@@ -13,6 +13,9 @@ then
 	genome_name=$(grep '>' $reference_genome |awk '{print $1}' |sed -re 's/>//')
 	genome_size=$(grep -v '>' $reference_genome | sed -z 's/\n//g' |wc -c)
 
+	#file name without dir and extension
+	file_name=$(awk -F'.' '{print $1}' <(echo $(basename $reference_genome)))
+
 	#####################################################
 	#FILE NAMES
 
@@ -62,7 +65,7 @@ then
 	printf "\n\n### getorf_map_neg.py $genome_name $genome_size $ref_orfs\n\n"
 	getorf_map_neg.py $genome_name $genome_size $ref_orfs
 
-	printf "\n\n### svg_stack.py --direction=V --margin=15 $genome_name'_prodigal.svg' $genome_name'_phanotate.svg' $genome_name'_pnps.svg' pnps_legend.svg $genome_name'_neg_strand_pnps.svg'  $genome_name'_bar_chart.svg' > $file_name'_summary.svg'\n\n"
+	printf "\n\n### svg_stack.py --direction=V --margin=15 $genome_name'_prodigal.svg' $genome_name'_phanotate.svg' $genome_name'_pnps.svg' pnps_legend.svg $genome_name'_neg_strand_pnps.svg'  $genome_name'_bar_chart.svg' > $file_name'_predictions.svg'\n\n"
 	svg_stack.py --direction=V --margin=15 $genome_name"_prodigal.svg" $genome_name"_phanotate.svg" $genome_name"_getorf_pos.svg" $genome_name"_getorf_neg.svg" > $file_name"_predictions.svg"
 
 else
