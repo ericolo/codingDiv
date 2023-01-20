@@ -11,132 +11,132 @@ then
 
 	if [ -z "${reference_genome}" ] || [ -z "${min_orf_size}" ] || [ -z "${translation_table}" ] || [ -z "${force_svg}" ]
 	then 
-		echo """
-	codingDiv.sh v1.0 
+			echo """
+		codingDiv.sh v1.0 
 
-	-g, --getorf_only
-	    Produce only SVG plot of protein predictions, useful when no microdiversity data available
+		-g, --getorf_only
+		    Produce only SVG plot of protein predictions, useful when no microdiversity data available
 
-	Positional arguments: 
-	1- Reference genome / Studied genome (FASTA)
+		Positional arguments: 
+		1- Reference genome / Studied genome (FASTA)
 
-	2- Minimal ORF size (in nucleotides) [integer]
+		2- Minimal ORF size (in nucleotides) [integer]
 
-	3- Translation table number used by EMBOSS getorf - https://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi [integer 1-23]
+		3- Translation table number used by EMBOSS getorf - https://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi [integer 1-23]
 
-	4- Force SVG for a very large genome, over 100 kilobases [Y|N]
+		4- Force SVG for a very large genome, over 100 kilobases [Y|N]
 
-	This last option is not recomended as it will generate a very large SVG file.
-	A better option would be splitting your genomes in several regions.
+		This last option is not recomended as it will generate a very large SVG file.
+		A better option would be splitting your genomes in several regions.
 
-	Cite us:
+		Cite us:
 
-	CodingDiv : visualize SNP-level microdiversity to discriminate between coding and noncoding regions.
-	Eric Olo Ndela & François Enault (2023, unpublished).
-	Laboratoire Microorganismes Genome & Environnement (LMGE)
-	Clermont-Auvergne University (UCA)
-	        """
+		CodingDiv : visualize SNP-level microdiversity to discriminate between coding and noncoding regions.
+		Eric Olo Ndela & François Enault (2023, unpublished).
+		Laboratoire Microorganismes Genome & Environnement (LMGE)
+		Clermont-Auvergne University (UCA)
+		        """
 	else
 
 
-	#Fetching reference name and size
-	genome_name=$(grep '>' $reference_genome |awk '{print $1}' |sed -re 's/>//')
-	genome_size=$(grep -v '>' $reference_genome | sed -z 's/\n//g' |wc -c)
+		#Fetching reference name and size
+		genome_name=$(grep '>' $reference_genome |awk '{print $1}' |sed -re 's/>//')
+		genome_size=$(grep -v '>' $reference_genome | sed -z 's/\n//g' |wc -c)
 
-	#file name without dir and extension
-	file_name=$(awk -F'.' '{print $1}' <(echo $(basename $reference_genome)))
+		#file name without dir and extension
+		file_name=$(awk -F'.' '{print $1}' <(echo $(basename $reference_genome)))
 
-	#####################################################
-	#FILE NAMES
+		#####################################################
+		#FILE NAMES
 
-	ref_orfs=$(awk -F'.' '{print $1}' <(echo $(basename $reference_genome)))_orfs.faa
+		ref_orfs=$(awk -F'.' '{print $1}' <(echo $(basename $reference_genome)))_orfs.faa
 
-	ref_orfs_tsv=$(awk -F'.' '{print $1}' <(echo $(basename $reference_genome)))_orfs.tsv
+		ref_orfs_tsv=$(awk -F'.' '{print $1}' <(echo $(basename $reference_genome)))_orfs.tsv
 
-	ref_trslt=$(awk -F'.' '{print $1}' <(echo $(basename $reference_genome)))_full.faa
+		ref_trslt=$(awk -F'.' '{print $1}' <(echo $(basename $reference_genome)))_full.faa
 
-	#Prodigal & phanotate
-	prodigal_faa=$(awk -F'.' '{print $1}' <(echo $(basename $reference_genome)))_prodigal.faa
+		#Prodigal & phanotate
+		prodigal_faa=$(awk -F'.' '{print $1}' <(echo $(basename $reference_genome)))_prodigal.faa
 
-	prodigal_gbk=$(awk -F'.' '{print $1}' <(echo $(basename $reference_genome)))_prodigal.gbk
+		prodigal_gbk=$(awk -F'.' '{print $1}' <(echo $(basename $reference_genome)))_prodigal.gbk
 
-	phanotate_tsv=$(awk -F'.' '{print $1}' <(echo $(basename $reference_genome)))_phanotate.tsv
+		phanotate_tsv=$(awk -F'.' '{print $1}' <(echo $(basename $reference_genome)))_phanotate.tsv
 
-	######################################################
+		######################################################
 
-	#Protein prediction
-	echo "Protein prediction..."
-	{
-	printf "\n\n### getorf -sequence $reference_genome -outseq $ref_orfs -table $translation_table -minsize $min_orf_size -find 1 -circular N -reverse Y\n\n"
-	getorf -sequence $reference_genome -outseq $ref_orfs -table $translation_table -minsize $min_orf_size -find 1 -circular N -reverse Y
-	exit_code21=$?
-
-	grep '>' $ref_orfs | awk '{if($5=="(REVERSE") {print $1"-\t"$2"\t"$4} else {print $1"+\t"$2"\t"$4}}' |sed -re 's/>// ; s/\[// ; s/\]//' > $ref_orfs_tsv
-
-	####################prodigal & phanotate
-
-	printf "\n\n### prodigal -i $reference_genome -o $prodigal_gbk -a $prodigal_faa -p meta\n\n"
-	prodigal -i $reference_genome -o $prodigal_gbk -a $prodigal_faa -p meta
-	exit_code22=$?
-
-	printf "\n\n### phanotate.py $reference_genome > $phanotate_tsv\n\n"
-	phanotate.py $reference_genome > $phanotate_tsv
-	exit_code23=$?
-
-	} &>>stdout.txt
-
-	if [ $exit_code21 -eq 0 ] || [ $exit_code22 -eq 0 ] || [ $exit_code23 -eq 0 ]
-	then
-
-		echo "Plotting..."
-
+		#Protein prediction
+		echo "Protein prediction..."
 		{
-		########################## prodigal & phanotate maps
-		printf "\n\n### prodigal_map.py $genome_name $genome_size $prodigal_faa\n\n"
-		prodigal_map.py $genome_name $genome_size $prodigal_faa
-		exit_code11=$?
+		printf "\n\n### getorf -sequence $reference_genome -outseq $ref_orfs -table $translation_table -minsize $min_orf_size -find 1 -circular N -reverse Y\n\n"
+		getorf -sequence $reference_genome -outseq $ref_orfs -table $translation_table -minsize $min_orf_size -find 1 -circular N -reverse Y
+		exit_code21=$?
 
-		printf "\n\n### phanotate_map.py $genome_name $genome_size $phanotate_tsv\n\n"
-		phanotate_map.py $genome_name $genome_size $phanotate_tsv
-		exit_code12=$?
+		grep '>' $ref_orfs | awk '{if($5=="(REVERSE") {print $1"-\t"$2"\t"$4} else {print $1"+\t"$2"\t"$4}}' |sed -re 's/>// ; s/\[// ; s/\]//' > $ref_orfs_tsv
 
-		printf "\n\n### getorf_map_pos.py $genome_name $genome_size $ref_orfs\n\n"
-		getorf_map_pos.py $genome_name $genome_size $ref_orfs
-		exit_code13=$?
+		####################prodigal & phanotate
 
-		printf "\n\n### getorf_map_neg.py $genome_name $genome_size $ref_orfs\n\n"
-		getorf_map_neg.py $genome_name $genome_size $ref_orfs
-		exit_code14=$?
+		printf "\n\n### prodigal -i $reference_genome -o $prodigal_gbk -a $prodigal_faa -p meta\n\n"
+		prodigal -i $reference_genome -o $prodigal_gbk -a $prodigal_faa -p meta
+		exit_code22=$?
 
-		printf "\n\n### svg_stack.py --direction=V --margin=15 $genome_name'_prodigal.svg' $genome_name'_phanotate.svg' $genome_name'_pnps.svg' pnps_legend.svg $genome_name'_neg_strand_pnps.svg'  $genome_name'_bar_chart.svg' > $file_name'_predictions.svg'\n\n"
-		svg_stack.py --direction=V --margin=15 $genome_name"_prodigal.svg" $genome_name"_phanotate.svg" $genome_name"_getorf_pos.svg" $genome_name"_getorf_neg.svg" > $file_name"_predictions.svg"
-		exit_code15=$?
-
-		rm $genome_name"_prodigal.svg" $genome_name"_phanotate.svg" $genome_name"_getorf_pos.svg" $genome_name"_getorf_neg.svg"
+		printf "\n\n### phanotate.py $reference_genome > $phanotate_tsv\n\n"
+		phanotate.py $reference_genome > $phanotate_tsv
+		exit_code23=$?
 
 		} &>>stdout.txt
 
-		if [ $exit_code11 -eq 0 ] || [ $exit_code12 -eq 0 ] || [ $exit_code13 -eq 0 ] || [ $exit_code14 -eq 0 ] || [ $exit_code15 -eq 0 ]
-		then	
+		if [ $exit_code21 -eq 0 ] || [ $exit_code22 -eq 0 ] || [ $exit_code23 -eq 0 ]
+		then
 
-			echo "DONE"
-			echo "Genomic maps are plotted into "$file_name"_predictions.svg"
-			echo "prodigal : " $prodigal_faa "and" $prodigal_gbk
-			echo "phanotate :" $phanotate_tsv
-			echo "getorf :" $ref_orfs
+			echo "Plotting..."
+
+			{
+			########################## prodigal & phanotate maps
+			printf "\n\n### prodigal_map.py $genome_name $genome_size $prodigal_faa\n\n"
+			prodigal_map.py $genome_name $genome_size $prodigal_faa
+			exit_code11=$?
+
+			printf "\n\n### phanotate_map.py $genome_name $genome_size $phanotate_tsv\n\n"
+			phanotate_map.py $genome_name $genome_size $phanotate_tsv
+			exit_code12=$?
+
+			printf "\n\n### getorf_map_pos.py $genome_name $genome_size $ref_orfs\n\n"
+			getorf_map_pos.py $genome_name $genome_size $ref_orfs
+			exit_code13=$?
+
+			printf "\n\n### getorf_map_neg.py $genome_name $genome_size $ref_orfs\n\n"
+			getorf_map_neg.py $genome_name $genome_size $ref_orfs
+			exit_code14=$?
+
+			printf "\n\n### svg_stack.py --direction=V --margin=15 $genome_name'_prodigal.svg' $genome_name'_phanotate.svg' $genome_name'_pnps.svg' pnps_legend.svg $genome_name'_neg_strand_pnps.svg'  $genome_name'_bar_chart.svg' > $file_name'_predictions.svg'\n\n"
+			svg_stack.py --direction=V --margin=15 $genome_name"_prodigal.svg" $genome_name"_phanotate.svg" $genome_name"_getorf_pos.svg" $genome_name"_getorf_neg.svg" > $file_name"_predictions.svg"
+			exit_code15=$?
+
+			rm $genome_name"_prodigal.svg" $genome_name"_phanotate.svg" $genome_name"_getorf_pos.svg" $genome_name"_getorf_neg.svg"
+
+			} &>>stdout.txt
+
+			if [ $exit_code11 -eq 0 ] || [ $exit_code12 -eq 0 ] || [ $exit_code13 -eq 0 ] || [ $exit_code14 -eq 0 ] || [ $exit_code15 -eq 0 ]
+			then	
+
+				echo "DONE"
+				echo "Genomic maps are plotted into "$file_name"_predictions.svg"
+				echo "prodigal : " $prodigal_faa "and" $prodigal_gbk
+				echo "phanotate :" $phanotate_tsv
+				echo "getorf :" $ref_orfs
+
+			else
+				echo "#################################################"
+				echo "There was an error, check stdout.txt for details"
+				echo "#################################################"	
+			fi		
 
 		else
 			echo "#################################################"
 			echo "There was an error, check stdout.txt for details"
-			echo "#################################################"	
-		fi		
-
-	else
-		echo "#################################################"
-		echo "There was an error, check stdout.txt for details"
-		echo "#################################################"
+			echo "#################################################"
+		fi
 	fi
-
 
 else
 
