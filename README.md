@@ -165,7 +165,7 @@ Positional arguments:<br>
 For example, if we only wanted the protein and ORF predictions of TYLCV: 
 
 ```diff
-docker run -v $HOME/test:/data codingdiv codingDiv.sh --getorf_only tylcv.fna 100 1 N
+docker run -v $HOME/test:/data codingdiv codingDiv.sh --getorf_only tylcv.fna 90 1 N
 ```
 
 All output files will be written in the current directory, and the SVG file named `tylcv_predictions.svg` should look like this:
