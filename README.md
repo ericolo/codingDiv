@@ -145,6 +145,35 @@ This is the SVG plot you should expect, here is the example run on TYLCV:
  <img src="images/summary_svg_TYLCV_512.png" width=800>
 </p>
 
+## What if no SNPs are found ? 
+
+In that case `codingDiv` will halt execution and tell you that no variants were found.<br>
+If you are still interested in comparing protein prediction to ORF prediction in a visual manner, you can launch `codingDiv` with the `-g` or `--getorf_only` tag. Only four positional arguments are needed: 
+
+-g, --getorf_only<br>
+    Produce only SVG plot of protein predictions, useful when no microdiversity data available
+
+Positional arguments:<br>
+1- Reference genome / Studied genome (FASTA)
+
+2- Minimal ORF size (in nucleotides) [integer]
+
+3- Translation table number used by EMBOSS getorf - https://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi [integer 1-23]
+
+4- Force SVG for a very large genome, over 100 kilobases [Y|N]
+
+For example, if we only wanted the protein and ORF predictions of TYLCV: 
+
+```diff
+docker run -v $HOME/test:/data codingdiv codingDiv.sh --getorf_only tylcv.fna 100 1 N
+```
+
+All output files will be written in the current directory, and the SVG file named `tylcv_predictions.svg` should look like this:
+
+<p align="center">
+ <img src="images/tylcv_predictions.png" width=800>
+</p>
+
 ## Citation
 
 For a detailed description of the pipeline, and to cite us:
