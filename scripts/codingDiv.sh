@@ -467,8 +467,6 @@ Clermont-Auvergne University (UCA)
 
 						mv $ref_orfs_tsv prot_prediction/
 
-						mv $genome_name"_pnps.tsv" output_files/
-
 						mv $genome_name"_bar_chart.svg" output_files/
 
 						cd output_files
@@ -554,8 +552,6 @@ Clermont-Auvergne University (UCA)
 						mv $ref_orfs.snp_summary.tsv output_files/
 
 						mv $ref_orfs_tsv prot_prediction/
-
-						mv $genome_name"_pnps.tsv" output_files/
 
 						mv $genome_name"_bar_chart.svg" output_files/
 
@@ -662,8 +658,6 @@ Clermont-Auvergne University (UCA)
 	mv $ref_orfs.snp_summary.tsv output_files/
 
 	mv $ref_orfs_tsv prot_prediction/
-
-	mv $genome_name"_pnps.tsv" output_files/
 
 	mv $genome_name"_bar_chart.svg" output_files/
 
