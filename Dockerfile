@@ -91,7 +91,9 @@ RUN pip install lxml
 
 #codingDiv repository
 
-RUN apt install -y git
+RUN apt-get update
+
+RUN apt-get install -y git
 
 #To not cach the git clone command as repository can change
 #This will change if the github repo is modified
