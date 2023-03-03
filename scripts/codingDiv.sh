@@ -111,7 +111,7 @@ Clermont-Auvergne University (UCA)
 				getorf_map_neg.py $genome_name $genome_size $ref_orfs
 				exit_code14=$?
 
-				printf "\n\n### svg_stack.py --direction=V --margin=15 $genome_name'_prodigal.svg' $genome_name'_phanotate.svg' $genome_name'_pnps.svg' pnps_legend.svg $genome_name'_neg_strand_pnps.svg'  $genome_name'_bar_chart.svg' > $file_name'_predictions.svg'\n\n"
+				printf "\n\n### svg_stack.py --direction=V --margin=15 $genome_name"_prodigal.svg" $genome_name"_phanotate.svg" $genome_name"_pnps.svg" pnps_legend.svg $genome_name"_neg_strand_pnps.svg"  $genome_name"_bar_chart.svg" > $file_name"_predictions.svg"\n\n"
 				svg_stack.py --direction=V --margin=15 $genome_name"_prodigal.svg" $genome_name"_phanotate.svg" $genome_name"_getorf_pos.svg" $genome_name"_getorf_neg.svg" > $file_name"_predictions.svg"
 				exit_code15=$?
 
@@ -157,7 +157,7 @@ Clermont-Auvergne University (UCA)
 				getorf_map_neg.py $genome_name $genome_size $ref_orfs
 				exit_code14=$?
 
-				printf "\n\n### svg_stack.py --direction=V --margin=15 $genome_name'_prodigal.svg' $genome_name'_phanotate.svg' $genome_name'_pnps.svg' pnps_legend.svg $genome_name'_neg_strand_pnps.svg'  $genome_name'_bar_chart.svg' > $file_name'_predictions.svg'\n\n"
+				printf "\n\n### svg_stack.py --direction=V --margin=15 $genome_name"_prodigal.svg" $genome_name"_phanotate.svg" $genome_name"_pnps.svg" pnps_legend.svg $genome_name"_neg_strand_pnps.svg"  $genome_name"_bar_chart.svg" > $file_name"_predictions.svg"\n\n"
 				svg_stack.py --direction=V --margin=15 $genome_name"_prodigal.svg" $genome_name"_phanotate.svg" $genome_name"_getorf_pos.svg" $genome_name"_getorf_neg.svg" > $file_name"_predictions.svg"
 				exit_code15=$?
 
@@ -475,13 +475,13 @@ Clermont-Auvergne University (UCA)
 
 						if [ $genome_size -lt 100000 ]
 						then
-							printf "\n\n### svg_stack.py --direction=V --margin=15 $genome_name'_prodigal.svg' $genome_name'_phanotate.svg' $genome_name'_pnps.svg' pnps_legend.svg $genome_name'_neg_strand_pnps.svg'  $genome_name'_bar_chart.svg' > $file_name'_summary.svg'\n\n"
+							printf "\n\n### svg_stack.py --direction=V --margin=15 $genome_name"_prodigal.svg" $genome_name"_phanotate.svg" $genome_name"_pnps.svg" pnps_legend.svg $genome_name"_neg_strand_pnps.svg"  $genome_name"_bar_chart.svg" > $file_name"_summary.svg"\n\n"
 							svg_stack.py --direction=V --margin=15 $genome_name"_prodigal.svg" $genome_name"_phanotate.svg" $genome_name"_pnps.svg" pnps_legend.svg $genome_name"_neg_strand_pnps.svg"  $genome_name"_bar_chart.svg" > $file_name"_summary.svg"
 							exit_code=$?
 
 						elif [ $genome_size -gt 100000 ] && [ $force_svg = "Y" ]
 						then
-							printf "\n\n### svg_stack.py --direction=V --margin=15 $genome_name'_prodigal.svg' $genome_name'_phanotate.svg' $genome_name'_pnps.svg' pnps_legend.svg $genome_name'_neg_strand_pnps.svg'  $genome_name'_bar_chart.svg' > $file_name'_summary.svg'\n\n"
+							printf "\n\n### svg_stack.py --direction=V --margin=15 $genome_name"_prodigal.svg" $genome_name"_phanotate.svg" $genome_name"_pnps.svg" pnps_legend.svg $genome_name"_neg_strand_pnps.svg"  $genome_name"_bar_chart.svg" > $file_name"_summary.svg"\n\n"
 							svg_stack.py --direction=V --margin=15 $genome_name"_prodigal.svg" $genome_name"_phanotate.svg" $genome_name"_pnps.svg" pnps_legend.svg $genome_name"_neg_strand_pnps.svg"  $genome_name"_bar_chart.svg" > $file_name"_summary.svg"
 							exit_code=$?
 						fi
@@ -563,13 +563,13 @@ Clermont-Auvergne University (UCA)
 
 						if [ $genome_size -lt 100000 ]
 						then
-							printf "\n\n### svg_stack.py --direction=V --margin=15 $genome_name'_prodigal.svg' $genome_name'_phanotate.svg' $genome_name'_pnps.svg' pnps_legend.svg $genome_name'_neg_strand_pnps.svg'  $genome_name'_bar_chart.svg' > $file_name'_summary.svg'\n\n"
+							printf "\n\n### svg_stack.py --direction=V --margin=15 $genome_name"_prodigal.svg" $genome_name"_phanotate.svg" $genome_name"_pnps.svg" pnps_legend.svg $genome_name"_neg_strand_pnps.svg"  $genome_name"_bar_chart.svg" > $file_name"_summary.svg"\n\n"
 							svg_stack.py --direction=V --margin=15 $genome_name"_prodigal.svg" $genome_name"_phanotate.svg" $genome_name"_pnps.svg" pnps_legend.svg $genome_name"_neg_strand_pnps.svg"  $genome_name"_bar_chart.svg" > $file_name"_summary.svg"
 							exit_code=$?
 
 						elif [ $genome_size -gt 100000 ] && [ $force_svg = "Y" ]
 						then
-							printf "\n\n### svg_stack.py --direction=V --margin=15 $genome_name'_prodigal.svg' $genome_name'_phanotate.svg' $genome_name'_pnps.svg' pnps_legend.svg $genome_name'_neg_strand_pnps.svg'  $genome_name'_bar_chart.svg' > $file_name'_summary.svg'\n\n"
+							printf "\n\n### svg_stack.py --direction=V --margin=15 $genome_name"_prodigal.svg" $genome_name"_phanotate.svg" $genome_name"_pnps.svg" pnps_legend.svg $genome_name"_neg_strand_pnps.svg"  $genome_name"_bar_chart.svg" > $file_name"_summary.svg"\n\n"
 							svg_stack.py --direction=V --margin=15 $genome_name"_prodigal.svg" $genome_name"_phanotate.svg" $genome_name"_pnps.svg" pnps_legend.svg $genome_name"_neg_strand_pnps.svg"  $genome_name"_bar_chart.svg" > $file_name"_summary.svg"
 							exit_code=$?
 						fi
