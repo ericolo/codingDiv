@@ -68,8 +68,6 @@ RUN make -C samtools-1.10
 
 ENV PATH=$PATH:/samtools-1.10
 
-RUN echo $PATH
-
 #bcftools
 
 RUN wget https://github.com/samtools/bcftools/releases/download/1.14/bcftools-1.14.tar.bz2
@@ -79,8 +77,6 @@ RUN tar xvjf bcftools-1.14.tar.bz2
 RUN make -C bcftools-1.14
 
 ENV PATH=$PATH:/bcftools-1.14
-
-RUN echo $PATH
 
 #bwa
 RUN apt-get install bwa=0.7.17-6
@@ -106,8 +102,6 @@ RUN git clone https://github.com/ericolo/codingDiv
 RUN chmod +x /codingDiv/scripts/*
 
 ENV PATH=$PATH:/codingDiv/scripts
-
-RUN echo $PATH
 
 #Just to have vim for troubleshooting
 RUN apt-get install -y nano
