@@ -91,6 +91,9 @@ RUN pip install lxml
 
 #codingDiv repository
 
+#To prevent public key error in macOS
+RUN add-apt-repository ppa:c2d4u.team/c2d4u4.0+
+
 RUN apt install -y git
 
 #To not cach the git clone command as repository can change
