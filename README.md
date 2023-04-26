@@ -61,6 +61,8 @@ Note that you can input several metagenomes at once with a glob, but remember to
 docker run -v $HOME/test:/data codingdiv codingDiv.sh tylcv.fna "\*_reads.fastq.gz" 90 1 2 1 3 N
 ```
 
+If you wish to compare several reference genomes at once, we recommend separately running comparisons, with one genome per fasta file, as BWA treats multifasta as a single genome with several chromosomes, thus a read will only be aligned once accross all chromosomes. Note that codingDiv can be parallelized on several processors, but keep in mind that BWA is itself parallelized and will use as much CPUs as indicated by the command line.
+
 We now invite you to check out the **Output & errors** section as well as **Example SVG** for more information.
 
 **Important:**
