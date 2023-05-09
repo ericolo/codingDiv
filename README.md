@@ -55,6 +55,7 @@ The `-v` flag tells the docker that you are working in your custom directory, wh
 Then you are calling the `codingdiv` image, that you just built a few minutes ago with the `docker build` command, and finally comes the actual **codingDiv** script with all the positional arguments.
 
 That's it ! Now you can replace the input files with your own reference genome alongside your own similar genomes/contigs or metagenomic reads.<br>
+**Keep in mind that very large contigs (>20Kb) will impede BWA from running, consider splitting your contigs into smaller fragments, or using reads directly if possible.**<br>
 Note that you can input several metagenomes at once with a glob, but remember to escape the glob character with a back slash and double quotation marks. For example:
 
 ```diff
