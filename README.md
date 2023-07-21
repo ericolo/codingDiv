@@ -181,8 +181,10 @@ All output files will be written in the current directory, and the SVG file name
 
 For a detailed description of the pipeline, and to cite us:
 
-**CodingDiv : visualize SNP-level microdiversity to discriminate between coding and noncoding regions.**<br>
-Eric Olo Ndela & François Enault (2023, unpublished).
+**CodingDiv: analyzing SNP-level microdiversity to discriminate between coding and noncoding regions in viral genomes.**<br>
+Eric Olo Ndela & François Enault<br>
+Bioinformatics, Volume 39, Issue 7, July 2023<br>
+(https://doi.org/10.1093/bioinformatics/btad408)
 
 Laboratoire Microorganismes Genome & Environnement (LMGE)<br>
 Clermont-Auvergne University (UCA)
